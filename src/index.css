@@ -6,7 +6,8 @@
   --color-text-inactive: rgba(25, 26, 21, 0.3);
   --main-color: #54be96;
   --color-focus: #36a379;
-  --background-color: #fbfbfb;
+  --background-color-home: #fbfbfb;
+  --background-color: #f3f3f3;
   --font-color: rgba(84, 190, 150, 0.2);
   --color-star: #ffc531;
 }
@@ -15,6 +16,7 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 14px;
+  color: var(--color-text);
 }
 
 a {
