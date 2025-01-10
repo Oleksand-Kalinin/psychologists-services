@@ -1,14 +1,29 @@
 .navigation {
     display: flex;
-    flex-basis: 536px;
     justify-content: space-between;
     align-items: baseline;
+
+    /* tablet */
+    flex-basis: 438px;
+
+    /* desktop */
+    /* 
+    flex-basis: 536px;
+     */
 }
 
 .wrapperLinks {
     display: flex;
-    column-gap: 40px;
-    font-style: 16px;
+
+    /* tablet */
+    column-gap: 20px;
+
+    /* desktop */
+    /* 
+    column-gap: 40px; 
+    font-size: 16px;
+    font-size: 16px;
+    */
 
     line-height: 1.25;
     letter-spacing: -0.01em;
@@ -16,6 +31,14 @@
 
 .link {
     color: inherit;
-    padding-top: 18px;
-    padding-bottom: 18px;
+
+    /* tablet */
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+    /* desktop */
+    /* 
+    padding-top: 38px;
+    padding-bottom: 38px;   
+     */
 }
