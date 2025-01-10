@@ -7,7 +7,7 @@ const AppBar = () => {
   const isLoggedIn = false;
 
   return (
-    <header>
+    <header className={css.header}>
       <Container className={css.container}>
         <Navigation />
         {isLoggedIn ? <p>UserMenu</p> : <AuthNav />}

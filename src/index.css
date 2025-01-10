@@ -4,6 +4,7 @@
 :root {
   --color-text: #191a15;
   --color-text-inactive: rgba(25, 26, 21, 0.3);
+  --color-text-header-line: rgba(25, 26, 21, 0.1);
   --main-color: #54be96;
   --color-focus: #36a379;
   --background-color-home: #fbfbfb;
