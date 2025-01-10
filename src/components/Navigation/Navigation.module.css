@@ -1,0 +1,21 @@
+.navigation {
+    display: flex;
+    flex-basis: 536px;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.wrapperLinks {
+    display: flex;
+    column-gap: 40px;
+    font-style: 16px;
+
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+.link {
+    color: inherit;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}

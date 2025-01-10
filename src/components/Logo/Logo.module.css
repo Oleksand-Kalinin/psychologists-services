@@ -1,0 +1,19 @@
+.logo {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+}
+
+.acceptColorGreen {
+    color: var(--main-color);
+}
+
+.acceptWeight500 {
+    font-weight: 500;
+}
+
+.acceptWeight700 {
+    font-weight: 700;
+}
