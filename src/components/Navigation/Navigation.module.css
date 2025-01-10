@@ -30,6 +30,7 @@
 }
 
 .link {
+    position: relative;
     color: inherit;
 
     /* tablet */
@@ -41,4 +42,16 @@
     padding-top: 38px;
     padding-bottom: 38px;   
      */
+}
+
+.activeLink::before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 14px;
 }
