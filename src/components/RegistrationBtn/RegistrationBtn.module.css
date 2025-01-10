@@ -4,7 +4,6 @@
     background-color: var(--main-color);
 
     font-weight: 500;
-    font-size: 16px;
     line-height: 1.25;
     letter-spacing: -0.01em;
     color: var(--background-color-home);
@@ -17,5 +16,6 @@
     /* 
         padding: 14px 40px;
         min-width: 171px;
+        font-size: 16px;
      */
 }
