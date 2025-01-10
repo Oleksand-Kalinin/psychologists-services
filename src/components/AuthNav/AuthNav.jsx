@@ -1,5 +1,11 @@
+import LogInBtn from "../LogInBtn/LogInBtn.jsx";
+
 const AuthNav = () => {
-  return <div>AuthNav</div>;
+  return (
+    <div>
+      <LogInBtn />
+    </div>
+  );
 };
 
 export default AuthNav;
