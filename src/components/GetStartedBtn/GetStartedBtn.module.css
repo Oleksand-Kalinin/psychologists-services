@@ -12,6 +12,12 @@
     line-height: 1.2;
     letter-spacing: -0.01em;
     color: var(--background-color-home);
+    transition: background-color 250ms linear;
+}
+
+.getStartedBtn:hover,
+.getStartedBtn:focus {
+    background-color: var(--color-focus);
 }
 
 .icon {

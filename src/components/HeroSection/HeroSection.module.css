@@ -7,7 +7,6 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     row-gap: 78px;
 }
 
@@ -139,18 +138,54 @@
 }
 
 @media screen and (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 78px;
+    }
+
     .title {
-        max-width: 595px;
+        max-width: 460px;
     }
 
     .text {
-        max-width: 510px;
+        max-width: 340px;
+
+    }
+
+    .wrapperImage {
+        flex-shrink: 0;
+        width: 340px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .container {
+        column-gap: 128px;
+    }
+
+    .title {
+        font-size: 60px;
+    }
+
+    .text {
+
         font-size: 18px;
+    }
+
+    .wrapperImage {
+        width: 400px;
     }
 }
 
 @media screen and (min-width: 1440px) {
     .title {
+        max-width: 595px;
         font-size: 80px;
+    }
+
+    .text {
+        max-width: 510px;
     }
 }
