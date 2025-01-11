@@ -5,7 +5,7 @@ const BurgerBtn = () => {
   return (
     <button type="button" className={css.burgerBtn}>
       <svg className={css.icon}>
-        <use href={`${sprite}#nav-menu-icon`}></use>
+        <use href={`${sprite}#burger-icon`}></use>
       </svg>
     </button>
   );

@@ -1,0 +1,41 @@
+.getStartedBtn {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 18px;
+    border-radius: 30px;
+    padding: 14px 32px;
+    min-width: 194px;
+    background-color: var(--main-color);
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--background-color-home);
+}
+
+.icon {
+    width: 14px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .getStartedBtn {
+        font-size: 20px;
+    }
+
+    .icon {
+        width: 15px;
+        height: 17px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .getStartedBtn {
+        padding: 18px 50px;
+        min-width: 235px;
+    }
+}

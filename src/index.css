@@ -11,6 +11,8 @@
   --background-color: #f3f3f3;
   --font-color: rgba(84, 190, 150, 0.2);
   --color-star: #ffc531;
+  --color-users-icon: #fbc75e;
+  --color-question-mark-icon: #4535af;
 }
 
 body {

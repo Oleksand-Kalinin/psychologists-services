@@ -9,18 +9,3 @@
         justify-content: space-between;
     }
 }
-
-
-@media screen and (min-width: 768px) {
-    .container {
-        padding-left: 32px;
-        padding-right: 32px;
-    }
-}
-
-@media screen and (min-width: 1440px) {
-    .container {
-        padding-left: 128px;
-        padding-right: 128px;
-    }
-}

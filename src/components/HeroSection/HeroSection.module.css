@@ -1,0 +1,156 @@
+.heroSection {
+    padding-top: 78px;
+    padding-bottom: 32px;
+    background-color: var(--background-color-home);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 78px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.03;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+.accept_colorGreen_styleItalic {
+    font-style: italic;
+    color: var(--main-color);
+}
+
+.text {
+    max-width: 300px;
+    font-weight: 500;
+    line-height: 1.33;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+}
+
+.wrapperImage {
+    position: relative;
+    background-image: url('../../images/hero-section/bg-image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    aspect-ratio: 1/1.137;
+}
+
+.wrapperUsersIcon {
+    position: absolute;
+    top: 11%;
+    right: -4%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--color-users-icon);
+    transform: rotate(15deg);
+
+}
+
+.usersIcon {
+    width: 20px;
+    height: 20px;
+    transform: rotate(-15deg);
+}
+
+.wrapperQuestionMarkIcon {
+    position: absolute;
+    top: 34%;
+    left: -4%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--color-question-mark-icon);
+    transform: rotate(-15deg);
+}
+
+.questionMarkIcon {
+    width: 14px;
+    height: 20px;
+    transform: rotate(15deg);
+}
+
+.wrapperInfo {
+    position: absolute;
+    top: 68%;
+    left: -4%;
+    display: inline-flex;
+    column-gap: 16px;
+    background-color: var(--main-color);
+    padding: 16px;
+    /* padding: 32px; */
+    border-radius: 20px;
+}
+
+.wrapperCheckMark {
+    border-radius: 13px;
+    /* width: 54px;
+    height: 54px; */
+    width: 40px;
+    height: 40px;
+    background-color: var(--background-color-home);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkMarkIcon {
+    /* width: 20px;
+    height: 15px; */
+    width: 18px;
+    height: 12px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.infoText {
+    /* font-size: 14px; */
+    font-size: 12px;
+    color: rgba(251, 251, 251, 0.5);
+}
+
+.infoCountPsychologists {
+    font-weight: 700;
+    /* font-size: 24px; */
+    font-size: 18px;
+    color: var(--background-color-home);
+}
+
+@media (min-resolution: 192dpi) {
+    .wrapperImage {
+        background-image: url('../../images/hero-section/bg-image@2x.png');
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .title {
+        max-width: 595px;
+    }
+
+    .text {
+        max-width: 510px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .title {
+        font-size: 80px;
+    }
+}
