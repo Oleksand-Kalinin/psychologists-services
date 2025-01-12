@@ -52,7 +52,6 @@
     border-radius: 10px;
     background-color: var(--color-users-icon);
     transform: rotate(15deg);
-
 }
 
 .usersIcon {
@@ -89,14 +88,11 @@
     column-gap: 16px;
     background-color: var(--main-color);
     padding: 16px;
-    /* padding: 32px; */
     border-radius: 20px;
 }
 
 .wrapperCheckMark {
     border-radius: 13px;
-    /* width: 54px;
-    height: 54px; */
     width: 40px;
     height: 40px;
     background-color: var(--background-color-home);
@@ -106,8 +102,6 @@
 }
 
 .checkMarkIcon {
-    /* width: 20px;
-    height: 15px; */
     width: 18px;
     height: 12px;
 }
@@ -119,14 +113,12 @@
 }
 
 .infoText {
-    /* font-size: 14px; */
     font-size: 12px;
     color: rgba(251, 251, 251, 0.5);
 }
 
 .infoCountPsychologists {
     font-weight: 700;
-    /* font-size: 24px; */
     font-size: 18px;
     color: var(--background-color-home);
 }
@@ -150,13 +142,16 @@
     }
 
     .text {
-        max-width: 340px;
-
+        max-width: 240px;
     }
 
     .wrapperImage {
         flex-shrink: 0;
         width: 340px;
+    }
+
+    .wrapperInfo {
+        left: -14%;
     }
 }
 
@@ -170,12 +165,42 @@
     }
 
     .text {
-
+        max-width: 330px;
         font-size: 18px;
     }
 
     .wrapperImage {
         width: 400px;
+    }
+
+    .wrapperUsersIcon {
+        right: -7%;
+    }
+
+    .wrapperQuestionMarkIcon {
+        left: -7%;
+    }
+
+    .wrapperInfo {
+        padding: 24px;
+    }
+
+    .wrapperCheckMark {
+        width: 48px;
+        height: 48px;
+    }
+
+    .checkMarkIcon {
+        width: 20px;
+        height: 15px;
+    }
+
+    .infoText {
+        font-size: 14px;
+    }
+
+    .infoCountPsychologists {
+        font-size: 20px;
     }
 }
 
@@ -187,5 +212,23 @@
 
     .text {
         max-width: 510px;
+    }
+
+    .wrapperImage {
+        width: 464px;
+    }
+
+    .wrapperInfo {
+        padding: 32px;
+        left: -18%;
+    }
+
+    .wrapperCheckMark {
+        width: 54px;
+        height: 54px;
+    }
+
+    .infoCountPsychologists {
+        font-size: 24px;
     }
 }
