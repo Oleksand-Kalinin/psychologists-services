@@ -1,0 +1,19 @@
+.closeBtn {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    stroke: var(--color-text);
+    background-color: transparent;
+    border: none;
+}
+
+.closeIcon {
+    width: 100%;
+    height: 100%;
+}
