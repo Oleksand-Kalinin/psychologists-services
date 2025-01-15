@@ -2,12 +2,20 @@ import { useState } from "react";
 import sprite from "../../images/sprite.svg";
 import Modal from "../Modal/Modal.jsx";
 import css from "./BurgerBtn.module.css";
+import NavigationModal from "../NavigationModal/NavigationModal.jsx";
 
 const BurgerBtn = () => {
   const [showModal, setShowModal] = useState(false);
+  const [typeModal, setTypeModal] = useState(null);
 
-  const showNavModal = () => setShowModal(true);
-  const closeNavModal = () => setShowModal(false);
+  const showNavModal = () => {
+    setShowModal(true);
+    setTypeModal("navigationModal");
+  };
+  const closeNavModal = () => {
+    setShowModal(false);
+    setTypeModal(null);
+  };
 
   return (
     <>
@@ -16,9 +24,11 @@ const BurgerBtn = () => {
           <use href={`${sprite}#burger-icon`}></use>
         </svg>
       </button>
-      <Modal showModal={showModal} closeModal={closeNavModal}>
-        <p>Modal navigation</p>
-      </Modal>
+      {typeModal === "navigationModal" && (
+        <Modal showModal={showModal} closeModal={closeNavModal}>
+          <NavigationModal />
+        </Modal>
+      )}
     </>
   );
 };

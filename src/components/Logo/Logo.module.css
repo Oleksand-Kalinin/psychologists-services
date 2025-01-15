@@ -1,11 +1,19 @@
 .logo {
     display: block;
     font-weight: 600;
-    padding: 24px 0;
-    font-size: 18px;
     line-height: 1.2;
     letter-spacing: -0.02em;
     color: var(--color-text);
+}
+
+.logoAppBar {
+    font-size: 18px;
+    padding: 24px 0;
+}
+
+.logoNavigationModal {
+    font-size: 18px;
+    padding: 12px 0;
 }
 
 .acceptColorGreen {

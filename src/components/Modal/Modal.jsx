@@ -6,7 +6,7 @@ import css from "./Modal.module.css";
 function Modal({ showModal, closeModal, children }) {
   const customStyles = {
     content: {
-      top: "40%",
+      top: "50%",
       left: "50%",
       right: "auto",
       bottom: "auto",
@@ -19,6 +19,11 @@ function Modal({ showModal, closeModal, children }) {
     },
   };
 
+  const handleAfterClose = () => {
+    document.body.removeAttribute("class");
+    document.querySelector("#root").removeAttribute("aria-hidden");
+  };
+
   ReactModal.setAppElement("#root");
 
   return (
@@ -27,6 +32,7 @@ function Modal({ showModal, closeModal, children }) {
       onRequestClose={closeModal}
       style={customStyles}
       bodyOpenClassName={"isOpenModal"}
+      onAfterClose={handleAfterClose}
     >
       <button className={css.closeBtn} type="button" onClick={closeModal}>
         <svg className={css.closeIcon}>

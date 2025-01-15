@@ -7,7 +7,7 @@ const AppBar = () => {
   return (
     <header className={css.header}>
       <Container className={css.container}>
-        <Navigation />
+        <Navigation sectionName={"AppBar"} />
         <BurgerBtn />
       </Container>
     </header>
