@@ -27,7 +27,7 @@
         .navigation {
             display: flex;
             flex-direction: column;
-            row-gap: 50px;
+            row-gap: 30px;
         }
 
         .activeLink::before {

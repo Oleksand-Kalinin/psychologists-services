@@ -13,10 +13,10 @@
 
 .logoNavigationModal {
     position: absolute;
-    top: 21px;
+    top: 24px;
     left: 16px;
     font-size: 18px;
-    padding: 12px 0;
+    padding: 0;
 }
 
 .acceptColorGreen {

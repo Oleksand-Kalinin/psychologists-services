@@ -1,6 +1,14 @@
 .container {
-    padding: 100px 32px;
-    background-color: var(--background-color-home);
     display: flex;
     align-items: center;
+}
+
+.container::after {
+    content: "";
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-text-header-line);
 }
