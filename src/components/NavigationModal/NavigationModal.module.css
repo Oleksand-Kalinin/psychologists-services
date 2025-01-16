@@ -1,6 +1,5 @@
 .container {
     padding: 100px 32px;
-    height: 100vh;
     background-color: var(--background-color-home);
     display: flex;
     align-items: center;
