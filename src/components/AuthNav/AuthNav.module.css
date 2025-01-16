@@ -1,11 +1,18 @@
-.authNav {
-    display: flex;
-    column-gap: 8px;
-}
-
 @media screen and (max-width: 767px) {
-    .authNav {
+    .authNavAppBar {
         display: none;
     }
 
+    .authNavNavModal {
+        display: flex;
+        column-gap: 12px;
+        order: -1;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .authNav {
+        display: flex;
+        column-gap: 8px;
+    }
 }

@@ -12,6 +12,9 @@
 }
 
 .logoNavigationModal {
+    position: absolute;
+    top: 21px;
+    left: 16px;
     font-size: 18px;
     padding: 12px 0;
 }

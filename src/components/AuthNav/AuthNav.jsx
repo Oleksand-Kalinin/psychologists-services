@@ -2,10 +2,16 @@ import clsx from "clsx";
 import LogInBtn from "../LogInBtn/LogInBtn.jsx";
 import RegistrationBtn from "../RegistrationBtn/RegistrationBtn.jsx";
 import css from "./AuthNav.module.css";
+import { buildSectionClass } from "../../utils/buildSectionClass.js";
 
-const AuthNav = ({ className }) => {
+const AuthNav = ({ className, sectionName }) => {
   return (
-    <div className={clsx(className, css.authNav)}>
+    <div
+      className={clsx(
+        className,
+        buildSectionClass("authNav", sectionName, css)
+      )}
+    >
       <LogInBtn />
       <RegistrationBtn />
     </div>
