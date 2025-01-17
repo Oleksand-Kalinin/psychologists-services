@@ -36,6 +36,7 @@ function Modal({ children }) {
     marginRight: "-50%",
     padding: "0",
     transform: "translate(-50%, -50%)",
+    borderRadius: "30px",
   };
 
   const customStyles = {
@@ -44,7 +45,7 @@ function Modal({ children }) {
         ? modalNavigationStyleContent
         : defaultStyleContent,
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.7)",
+      backgroundColor: "rgba(25, 26, 21, 0.6)",
     },
   };
 
