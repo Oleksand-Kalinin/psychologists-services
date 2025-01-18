@@ -3,7 +3,7 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
 
-import { LogInValidationSchema } from "../../utils/validationSchemas.js";
+import { RegistrationValidationSchema } from "../../utils/validationSchemas.js";
 
 import Container from "../Container/Container.jsx";
 
@@ -20,7 +20,7 @@ const RegistrationForm = () => {
     watch,
     formState: { errors, isValid },
   } = useForm({
-    resolver: yupResolver(LogInValidationSchema),
+    resolver: yupResolver(RegistrationValidationSchema),
     mode: "onBlur",
   });
 
