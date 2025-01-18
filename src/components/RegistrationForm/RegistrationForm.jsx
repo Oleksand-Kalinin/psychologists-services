@@ -8,9 +8,9 @@ import { LogInValidationSchema } from "../../utils/validationSchemas.js";
 import Container from "../Container/Container.jsx";
 
 import sprite from "../../images/sprite.svg";
-import css from "./LogInForm.module.css";
+import css from "./RegistrationForm.module.css";
 
-const LogInForm = () => {
+const RegistrationForm = () => {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [showEyeIcon, setShowEyeIcon] = useState(false);
 
@@ -38,13 +38,22 @@ const LogInForm = () => {
 
   return (
     <Container className={css.container}>
-      <h2 className={css.title}>Log In</h2>
+      <h2 className={css.title}>Registration</h2>
       <p className={css.text}>
-        Welcome back! Please enter your credentials to access your account and
-        continue your search for a psychologist.
+        Thank you for your interest in our platform! In order to register, we
+        need some information. Please provide us with the following information.
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={clsx(css.wrapperInput, css.wrapperInputEmail)}>
+        <div className={css.wrapperInput}>
+          <input
+            className={css.input}
+            placeholder="Name"
+            {...register("userName")}
+          />
+          <span className={css.error}>{errors.userName?.message}</span>
+        </div>
+
+        <div className={css.wrapperInput}>
           <input
             className={css.input}
             placeholder="Email"
@@ -82,11 +91,11 @@ const LogInForm = () => {
         </div>
 
         <button className={css.button} type="submit" disabled={!isValid}>
-          Log In
+          Sign Up
         </button>
       </form>
     </Container>
   );
 };
 
-export default LogInForm;
+export default RegistrationForm;
