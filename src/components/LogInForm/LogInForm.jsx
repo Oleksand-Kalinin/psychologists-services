@@ -21,7 +21,7 @@ const LogInForm = () => {
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(LogInValidationSchema),
-    mode: "onBlur",
+    mode: "onChange",
   });
 
   const toggleVisiblePassword = () => {

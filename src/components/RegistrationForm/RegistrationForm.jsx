@@ -21,7 +21,7 @@ const RegistrationForm = () => {
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(RegistrationValidationSchema),
-    mode: "onBlur",
+    mode: "onChange",
   });
 
   const toggleVisiblePassword = () => {
