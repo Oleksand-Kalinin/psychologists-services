@@ -79,13 +79,13 @@
 
 .error {
     position: absolute;
-    top: calc(100% + 4px);
-    right: 0;
+    top: calc(100% + 2px);
+    right: 12px;
 
     font-size: 10px;
     line-height: 1.29;
     letter-spacing: -0.01em;
-    color: var(--seventh-color);
+    color: var(--color-error);
 }
 
 .button {
@@ -106,7 +106,12 @@
 
 .button:hover,
 .button:focus {
-    background-color: var(--fourth-color);
+    background-color: var(--color-focus);
+}
+
+.button:disabled {
+    background-color: var(--color-text-inactive);
+    cursor: not-allowed;
 }
 
 @media screen and (min-width: 768px) {

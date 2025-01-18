@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import Container from "../Container/Container.jsx";
 
 import sprite from "../../images/sprite.svg";
 import css from "./LogInForm.module.css";
 import clsx from "clsx";
+import { LogInValidationSchema } from "../../utils/validationSchemas.js";
 
 const LogInForm = () => {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
@@ -15,8 +17,11 @@ const LogInForm = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(LogInValidationSchema),
+    mode: "onBlur",
+  });
 
   const toggleVisiblePassword = () => {
     setIsVisiblePassword(!isVisiblePassword);
@@ -26,6 +31,10 @@ const LogInForm = () => {
     setShowEyeIcon(watch("password").trim().length > 0);
   };
 
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <Container className={css.container}>
       <h2 className={css.title}>Log In</h2>
@@ -33,7 +42,7 @@ const LogInForm = () => {
         Welcome back! Please enter your credentials to access your account and
         continue your search for a psychologist.
       </p>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={clsx(css.wrapperInput, css.wrapperInputEmail)}>
           <input
             className={css.input}
@@ -69,7 +78,7 @@ const LogInForm = () => {
           <span className={css.error}>{errors.password?.message}</span>
         </div>
 
-        <button className={css.button} type="submit">
+        <button className={css.button} type="submit" disabled={!isValid}>
           Log In
         </button>
       </form>
