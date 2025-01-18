@@ -9,6 +9,7 @@ import Container from "../Container/Container.jsx";
 
 import sprite from "../../images/sprite.svg";
 import css from "./LogInForm.module.css";
+import { loginUser } from "../../js/api/firebase-api.js";
 
 const LogInForm = () => {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
@@ -33,7 +34,7 @@ const LogInForm = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    loginUser(data);
   };
 
   return (

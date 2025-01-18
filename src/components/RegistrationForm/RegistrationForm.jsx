@@ -1,17 +1,21 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 import { RegistrationValidationSchema } from "../../js/validation/validationSchemas.js";
+import { registerUser } from "../../js/api/firebase-api.js";
 
 import Container from "../Container/Container.jsx";
 
 import sprite from "../../images/sprite.svg";
 import css from "./RegistrationForm.module.css";
-// import { registerUser } from "../../js/api/firebase-api.js";
+import { useDispatch } from "react-redux";
 
 const RegistrationForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [showEyeIcon, setShowEyeIcon] = useState(false);
 
@@ -34,8 +38,7 @@ const RegistrationForm = () => {
   };
 
   const onSubmit = (data) => {
-    // registerUser(data);
-    console.log(data);
+    registerUser(data, navigate, dispatch);
   };
 
   return (

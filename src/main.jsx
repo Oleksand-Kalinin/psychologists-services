@@ -7,6 +7,7 @@ import { store } from "./redux/store.js";
 
 import App from "./App.jsx";
 import "./index.css";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         {/* <PersistGate persistor={persistor}> */}
         <App />
+        <Toaster />
         {/* </PersistGate> */}
       </Provider>
     </BrowserRouter>
