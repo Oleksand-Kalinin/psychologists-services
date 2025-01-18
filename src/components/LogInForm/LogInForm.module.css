@@ -108,3 +108,10 @@
 .button:focus {
     background-color: var(--fourth-color);
 }
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 565px;
+        padding: 64px;
+    }
+}

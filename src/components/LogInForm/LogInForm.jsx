@@ -22,7 +22,7 @@ const LogInForm = () => {
     setIsVisiblePassword(!isVisiblePassword);
   };
 
-  const toggleVisibleEyeIcon = () => {
+  const changePasswordInput = () => {
     setShowEyeIcon(watch("password").trim().length > 0);
   };
 
@@ -48,7 +48,7 @@ const LogInForm = () => {
             className={clsx(css.input, css.inputPassword)}
             type={isVisiblePassword ? "text" : "password"}
             placeholder="Password"
-            {...register("password", { onChange: toggleVisibleEyeIcon })}
+            {...register("password", { onChange: changePasswordInput })}
           />
           <button
             className={css.buttonEye}
