@@ -3,12 +3,13 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
 
-import { RegistrationValidationSchema } from "../../utils/validationSchemas.js";
+import { RegistrationValidationSchema } from "../../js/validation/validationSchemas.js";
 
 import Container from "../Container/Container.jsx";
 
 import sprite from "../../images/sprite.svg";
 import css from "./RegistrationForm.module.css";
+// import { registerUser } from "../../js/api/firebase-api.js";
 
 const RegistrationForm = () => {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
@@ -33,6 +34,7 @@ const RegistrationForm = () => {
   };
 
   const onSubmit = (data) => {
+    // registerUser(data);
     console.log(data);
   };
 

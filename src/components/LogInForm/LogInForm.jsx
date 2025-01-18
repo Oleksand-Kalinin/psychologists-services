@@ -3,7 +3,7 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
 
-import { LogInValidationSchema } from "../../utils/validationSchemas.js";
+import { LogInValidationSchema } from "../../js/validation/validationSchemas.js";
 
 import Container from "../Container/Container.jsx";
 

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { buildSectionClass } from "../../utils/buildSectionClass.js";
+import { buildSectionClass } from "../../js/utils/buildSectionClass.js";
 import clsx from "clsx";
 
 import Logo from "../Logo/Logo.jsx";
