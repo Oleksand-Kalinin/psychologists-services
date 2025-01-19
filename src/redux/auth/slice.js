@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { apiRegister } from "./operations";
+import { apiLogin, apiRegister } from "./operations";
 
 const INITIAL_STATE = {
     user: {
         id: null,
-        userName: null,
+        name: null,
         email: null,
     },
     accessToken: null,
@@ -39,8 +39,8 @@ const authSlice = createSlice({
                     state.isLoading = false;
                     state.isLoggedIn = true;
 
-                    state.user.id = payload.uid;
-                    state.user.name = payload.displayName;
+                    state.user.id = payload.id;
+                    state.user.name = payload.userName;
                     state.user.email = payload.email;
                     state.accessToken = payload.accessToken;
                 })
@@ -50,24 +50,29 @@ const authSlice = createSlice({
                     state.isLoading = false;
                 })
 
-        // Login user
-        // .addCase(
-        //     apiLogin.pending,
-        //     (state) => {
-        //         state.error = null;
-        //     })
-        // .addCase(
-        //     apiLogin.fulfilled,
-        //     (state, { payload }) => {
-        //         state.isLoggedIn = true;
-        //         state.token = payload.token;
-        //         state.user = payload.user;
-        //     })
-        // .addCase(
-        //     apiLogin.rejected,
-        //     (state, { payload }) => {
-        //         state.error = payload;
-        //     })
+            // Login user
+            .addCase(
+                apiLogin.pending,
+                (state) => {
+                    state.isLoading = true;
+                })
+            .addCase(
+                apiLogin.fulfilled,
+                (state, { payload }) => {
+                    state.isLoading = false;
+                    state.isLoggedIn = true;
+
+                    console.log(payload);
+                    state.user.id = payload.id;
+                    state.user.name = payload.userName;
+                    state.user.email = payload.email;
+                    state.accessToken = payload.accessToken;
+                })
+            .addCase(
+                apiLogin.rejected,
+                (state) => {
+                    state.isLoading = false;
+                })
 
         // // Logout user
         // .addCase(apiLogout.pending,

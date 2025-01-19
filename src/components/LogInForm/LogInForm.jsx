@@ -9,9 +9,15 @@ import Container from "../Container/Container.jsx";
 
 import sprite from "../../images/sprite.svg";
 import css from "./LogInForm.module.css";
-import { loginUser } from "../../js/api/firebase-api.js";
+import { useDispatch } from "react-redux";
+import { apiLogin } from "../../redux/auth/operations.js";
+import toast from "react-hot-toast";
+import { closeModal } from "../../redux/modals/slice.js";
+import { useNavigate } from "react-router-dom";
 
 const LogInForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [showEyeIcon, setShowEyeIcon] = useState(false);
 
@@ -34,7 +40,22 @@ const LogInForm = () => {
   };
 
   const onSubmit = (data) => {
-    loginUser(data);
+    dispatch(apiLogin(data))
+      .unwrap()
+      .then(() => {
+        toast.success("Successfully logged in! Let’s get started.");
+        navigate("/psychologists");
+        dispatch(closeModal());
+      })
+      .catch((error) => {
+        if (error === "auth/email-already-in-use") {
+          toast.error(
+            "The email address is already in use by another account."
+          );
+        } else {
+          toast.error("Registration failed. Please try again.");
+        }
+      });
   };
 
   return (
