@@ -2,16 +2,18 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import clsx from "clsx";
 
 import { RegistrationValidationSchema } from "../../js/validation/validationSchemas.js";
-import { registerUser } from "../../js/api/firebase-api.js";
+import { apiRegister } from "../../redux/auth/operations.js";
 
 import Container from "../Container/Container.jsx";
 
 import sprite from "../../images/sprite.svg";
 import css from "./RegistrationForm.module.css";
-import { useDispatch } from "react-redux";
+import { closeModal } from "../../redux/modals/slice.js";
+import toast from "react-hot-toast";
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -38,7 +40,24 @@ const RegistrationForm = () => {
   };
 
   const onSubmit = (data) => {
-    registerUser(data, navigate, dispatch);
+    dispatch(apiRegister(data))
+      .unwrap()
+      .then(() => {
+        toast.success(
+          "Welcome! Your registration was successful, and you are now logged in."
+        );
+        navigate("/psychologists");
+        dispatch(closeModal());
+      })
+      .catch((error) => {
+        if (error === "auth/email-already-in-use") {
+          toast.error(
+            "The email address is already in use by another account."
+          );
+        } else {
+          toast.error("Registration failed. Please try again.");
+        }
+      });
   };
 
   return (
