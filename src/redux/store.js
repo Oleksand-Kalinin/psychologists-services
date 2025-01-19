@@ -3,8 +3,8 @@ import { authReducer } from "./auth/slice.js";
 import { configureStore } from "@reduxjs/toolkit";
 
 import {
-    // persistStore,
-    // persistReducer,
+    persistStore,
+    persistReducer,
     FLUSH,
     REHYDRATE,
     PAUSE,
@@ -13,19 +13,18 @@ import {
     REGISTER,
 } from "redux-persist";
 
-// import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage";
 
-// const trucksConfig = {
-//     key: "trucksKey",
-//     storage,
-//     whitelist: ["trucksFavorite"],
-// };
+const authConfig = {
+    key: "accessToken",
+    storage,
+    whitelist: ["accessToken"],
+};
 
 export const store = configureStore({
     reducer: {
-        // trucks: persistReducer(trucksConfig, trucksReducer),
         modals: modalsReducer,
-        auth: authReducer,
+        auth: persistReducer(authConfig, authReducer),
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware(
@@ -37,4 +36,4 @@ export const store = configureStore({
         ),
 });
 
-// export const persistor = persistStore(store);
+export const persistor = persistStore(store);
