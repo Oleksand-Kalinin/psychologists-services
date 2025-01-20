@@ -1,0 +1,29 @@
+.wrapperFiltersPopover {
+    position: absolute;
+    top: calc(100% + 8px);
+    width: 100%;
+    left: 0;
+    z-index: 1;
+    padding: 14px 18px;
+    border-radius: 14px;
+    box-shadow: 0 20px 69px 0 rgba(0, 0, 0, 0.07);
+    background: var(--color-background-filters-popover);
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    align-items: start;
+}
+
+.button {
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-inactive);
+
+    transition: color 250ms linear;
+}
+
+.button:hover,
+.button:focus {
+    color: var(--color-text);
+}

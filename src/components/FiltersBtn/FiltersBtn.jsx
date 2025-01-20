@@ -1,6 +1,7 @@
 import { useState } from "react";
 import sprite from "../../images/sprite.svg";
 import css from "./FiltersBtn.module.css";
+import FiltersPopover from "../FiltersPopover/FiltersPopover.jsx";
 
 const FiltersBtn = () => {
   const [optionValue, setOptionValue] = useState("Show all");
@@ -13,14 +14,23 @@ const FiltersBtn = () => {
   //     { value: "show-all", label: "Show all" },
   //   ];
 
-  //   const handleChange = (selectedOption) => {
-  //     console.log("Selected option:", selectedOption);
-  //   };
+  const handleClickFiltersBtn = () => {
+    setShowFiltersPopover(!showFiltersPopover);
+  };
+
+  const selectOptionFilter = (option) => {
+    setOptionValue(option);
+    setShowFiltersPopover(false);
+  };
 
   return (
     <div className={css.wrapperFiltersBtn}>
       <p className={css.text}>Filters</p>
-      <button className={css.filtersBtn} type="button">
+      <button
+        className={css.filtersBtn}
+        type="button"
+        onClick={handleClickFiltersBtn}
+      >
         <p>{optionValue}</p>
 
         {showFiltersPopover ? (
@@ -33,6 +43,9 @@ const FiltersBtn = () => {
           </svg>
         )}
       </button>
+      {showFiltersPopover && (
+        <FiltersPopover selectOptionFilter={selectOptionFilter} />
+      )}
     </div>
   );
 };
