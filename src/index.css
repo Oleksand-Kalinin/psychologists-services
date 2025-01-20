@@ -15,6 +15,7 @@
   --color-users-icon: #fbc75e;
   --color-question-mark-icon: #4535af;
   --color-error: #ef5050;
+  --color-text-filter: #8a8a89;
 }
 
 body {
@@ -22,6 +23,7 @@ body {
   font-weight: 400;
   font-size: 14px;
   color: var(--color-text);
+  background-color: var(--background-color);
 }
 
 a {

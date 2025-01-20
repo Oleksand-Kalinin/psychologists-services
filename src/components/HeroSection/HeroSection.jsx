@@ -4,8 +4,17 @@ import Section from "../Section/Section.jsx";
 
 import sprite from "../../images/sprite.svg";
 import css from "./HeroSection.module.css";
+import { useEffect } from "react";
 
 const HeroSection = () => {
+  useEffect(() => {
+    document.querySelector("body").style.backgroundColor =
+      "var(--background-color-home)";
+    return () => {
+      document.querySelector("body").removeAttribute("style");
+    };
+  });
+
   return (
     <Section className={css.heroSection}>
       <Container className={css.container}>
