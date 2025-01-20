@@ -7,13 +7,6 @@ const FiltersBtn = () => {
   const [optionValue, setOptionValue] = useState("Show all");
   const [showFiltersPopover, setShowFiltersPopover] = useState(false);
 
-  //   const options = [
-  //     { value: "a-to-z", label: "A to Z" },
-  //     { value: "z-to-a", label: "Z to A" },
-  //     { value: "less-then-ten", label: "Less then 10$" },
-  //     { value: "show-all", label: "Show all" },
-  //   ];
-
   const handleClickFiltersBtn = () => {
     setShowFiltersPopover(!showFiltersPopover);
   };
