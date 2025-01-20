@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { auth } from "../../../firebaseConfig.js";
 
 
+
 export const apiRegister = createAsyncThunk(
     "auth/register",
     async (payload, thunkApi) => {
@@ -56,3 +57,17 @@ export const apiLogin = createAsyncThunk(
         }
     }
 );
+
+
+
+// export const apiLogout = createAsyncThunk(
+//     "auth/logout",
+//     async (_, thunkApi) => {
+
+//         try {
+//             await signOut(auth);
+//         } catch (error) {
+//             return thunkApi.rejectWithValue(error.code);
+//         }
+//     }
+// );

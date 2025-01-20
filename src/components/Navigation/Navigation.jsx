@@ -6,9 +6,12 @@ import Logo from "../Logo/Logo.jsx";
 import AuthNav from "../AuthNav/AuthNav.jsx";
 
 import css from "./Navigation.module.css";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
+import UserMenu from "../UserMenu/UserMenu.jsx";
 
 const Navigation = ({ sectionName }) => {
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const buildLinkClass = ({ isActive }) => {
     return clsx(css.link, isActive && css.activeLink);
@@ -24,11 +27,17 @@ const Navigation = ({ sectionName }) => {
         <NavLink className={buildLinkClass} to="/psychologists">
           Psychologists
         </NavLink>
-        <NavLink className={buildLinkClass} to="/favorites">
-          Favorites
-        </NavLink>
+        {isLoggedIn && (
+          <NavLink className={buildLinkClass} to="/favorites">
+            Favorites
+          </NavLink>
+        )}
       </div>
-      {isLoggedIn ? <p>UserMenu</p> : <AuthNav sectionName={sectionName} />}
+      {isLoggedIn ? (
+        <UserMenu sectionName={sectionName} />
+      ) : (
+        <AuthNav sectionName={sectionName} />
+      )}
     </nav>
   );
 };

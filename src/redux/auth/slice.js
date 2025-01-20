@@ -4,11 +4,11 @@ import { apiLogin, apiRegister } from "./operations";
 const INITIAL_STATE = {
     user: {
         id: null,
-        name: null,
+        name: "Oleksandr",
         email: null,
     },
     accessToken: null,
-    isLoggedIn: false,
+    isLoggedIn: true,
     isRefreshing: false,
     isLoading: false,
     error: null,
@@ -62,7 +62,6 @@ const authSlice = createSlice({
                     state.isLoading = false;
                     state.isLoggedIn = true;
 
-                    console.log(payload);
                     state.user.id = payload.id;
                     state.user.name = payload.userName;
                     state.user.email = payload.email;
