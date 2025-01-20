@@ -1,6 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    updateProfile
+} from "firebase/auth";
+
 import { auth } from "../../../firebaseConfig.js";
 
 
@@ -60,14 +66,14 @@ export const apiLogin = createAsyncThunk(
 
 
 
-// export const apiLogout = createAsyncThunk(
-//     "auth/logout",
-//     async (_, thunkApi) => {
+export const apiLogout = createAsyncThunk(
+    "auth/logout",
+    async (_, thunkApi) => {
 
-//         try {
-//             await signOut(auth);
-//         } catch (error) {
-//             return thunkApi.rejectWithValue(error.code);
-//         }
-//     }
-// );
+        try {
+            await signOut(auth);
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.code);
+        }
+    }
+);

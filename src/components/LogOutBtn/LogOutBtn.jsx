@@ -1,9 +1,12 @@
+import { useDispatch } from "react-redux";
+import { apiLogout } from "../../redux/auth/operations";
 import css from "./LogOutBtn.module.css";
+
 const LogOutBtn = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleClickLogOut = () => {
-    console.log("logOut");
+    dispatch(apiLogout());
   };
 
   return (

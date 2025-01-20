@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { apiLogin, apiRegister } from "./operations";
+import { apiLogin, apiLogout, apiRegister } from "./operations";
 
 const INITIAL_STATE = {
     user: {
         id: null,
-        name: "Oleksandr",
+        name: null,
         email: null,
     },
     accessToken: null,
-    isLoggedIn: true,
+    isLoggedIn: false,
     isRefreshing: false,
     isLoading: false,
     error: null,
@@ -73,18 +73,10 @@ const authSlice = createSlice({
                     state.isLoading = false;
                 })
 
-        // // Logout user
-        // .addCase(apiLogout.pending,
-        //     (state) => {
-        //         state.error = null;
-        //     })
-        // .addCase(apiLogout.fulfilled, () => {
-        //     return INITIAL_STATE;
-        // })
-        // .addCase(apiLogout.rejected,
-        //     (state, { payload }) => {
-        //         state.error = payload;
-        //     })
+            // Logout user
+            .addCase(apiLogout.fulfilled, () => {
+                return INITIAL_STATE;
+            })
 
         // // Refresh user
         // .addCase(apiRefreshUser.pending,

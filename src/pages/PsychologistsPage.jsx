@@ -1,5 +1,7 @@
+import PsychologistsSection from "../components/PsychologistsSection/PsychologistsSection.jsx";
+
 const PsychologistsPage = () => {
-  return <div>PsychologistsPage Let&rsquo;s</div>;
+  return <PsychologistsSection />;
 };
 
 export default PsychologistsPage;
