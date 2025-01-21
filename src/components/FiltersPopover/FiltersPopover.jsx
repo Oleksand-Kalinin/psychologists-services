@@ -1,12 +1,44 @@
+import { useEffect } from "react";
 import css from "./FiltersPopover.module.css";
+import { useDispatch } from "react-redux";
+import { changeFilter } from "../../redux/filters/slice.js";
 
-const FiltersPopover = ({ selectOptionFilter }) => {
+const FiltersPopover = ({ closeFiltersPopover, wrapperFiltersRef }) => {
+  const dispatch = useDispatch();
+
   const handleClick = (event) => {
     if (event.target.tagName === "BUTTON") {
       const filterOption = event.target.textContent;
-      selectOptionFilter(filterOption);
+      dispatch(changeFilter(filterOption));
+      closeFiltersPopover();
     }
   };
+
+  useEffect(() => {
+    const handleClickDown = (event) => {
+      if (event.code === "Escape") {
+        closeFiltersPopover();
+      }
+    };
+
+    const handleClickBackDrop = (event) => {
+      if (
+        wrapperFiltersRef.current &&
+        !wrapperFiltersRef.current.contains(event.target)
+      ) {
+        closeFiltersPopover();
+      }
+    };
+
+    window.addEventListener("keydown", handleClickDown);
+
+    window.addEventListener("mousedown", handleClickBackDrop);
+
+    return () => {
+      window.removeEventListener("keydown", handleClickDown);
+      window.removeEventListener("mousedown", handleClickBackDrop);
+    };
+  }, []);
 
   return (
     <div className={css.wrapperFiltersPopover} onClick={handleClick}>

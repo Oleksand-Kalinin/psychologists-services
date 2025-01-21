@@ -1,5 +1,7 @@
 import { modalsReducer } from "./modals/slice.js";
 import { authReducer } from "./auth/slice.js";
+import { filtersReducer } from "./filters/slice.js";
+
 import { configureStore } from "@reduxjs/toolkit";
 
 import {
@@ -25,6 +27,7 @@ export const store = configureStore({
     reducer: {
         modals: modalsReducer,
         auth: persistReducer(authConfig, authReducer),
+        filters: filtersReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware(

@@ -1,29 +1,35 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import Container from "../Container/Container.jsx";
 import FiltersBtn from "../FiltersBtn/FiltersBtn.jsx";
 import Section from "../Section/Section.jsx";
 
 import css from "./PsychologistsSection.module.css";
-import { database } from "../../../firebaseConfig.js";
-import { get, ref } from "firebase/database";
+// import { database } from "../../../firebaseConfig.js";
+// import { get, limitToFirst, query, ref } from "firebase/database";
+import data from "../../../temp/data.json";
 
 const PsychologistsSection = () => {
-  useEffect(() => {
-    const rootRef = ref(database);
+  // useEffect(() => {
+  //   const queryPsychologists = query(
+  //     ref(database, "psychologists"),
+  //     limitToFirst(3)
+  //   );
 
-    get(rootRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          console.log("All data fetched:", data);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching all data:", error);
-      });
-  }, []);
+  //   get(queryPsychologists)
+  //     .then((response) => {
+  //       if (response.exists()) {
+  //         const data = response.val();
+  //         console.log("All data fetched:", data);
+  //       } else {
+  //         console.log("No data available");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching all data:", error);
+  //     });
+  // }, []);
+
+  console.log(data);
 
   return (
     <Section className={css.psychologistsSection}>
