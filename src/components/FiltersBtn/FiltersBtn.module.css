@@ -1,6 +1,7 @@
 .wrapperFiltersBtn {
     position: relative;
     max-width: 226px;
+    margin-bottom: 32px;
 }
 
 .text {

@@ -6,7 +6,7 @@ import Section from "../Section/Section.jsx";
 import css from "./PsychologistsSection.module.css";
 // import { database } from "../../../firebaseConfig.js";
 // import { get, limitToFirst, query, ref } from "firebase/database";
-import data from "../../../temp/data.json";
+import PsychologistsList from "../PsychologistsList/PsychologistsList.jsx";
 
 const PsychologistsSection = () => {
   // useEffect(() => {
@@ -29,12 +29,12 @@ const PsychologistsSection = () => {
   //     });
   // }, []);
 
-  console.log(data);
-
   return (
     <Section className={css.psychologistsSection}>
       <Container>
+        <h2 className="visually-hidden">Psychologists</h2>
         <FiltersBtn />
+        <PsychologistsList />
       </Container>
     </Section>
   );
