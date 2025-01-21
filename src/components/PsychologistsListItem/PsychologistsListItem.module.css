@@ -36,11 +36,15 @@
 
 .wrapperMainInfo {
     display: grid;
-    grid-template-columns: 1fr minmax(285px, 300px) 26px;
-    column-gap: 28px;
+    grid-template-areas:
+        "name iconHeart"
+        "ratingPrice iconHeart";
+    grid-template-columns: 1fr 26px;
+    row-gap: 8px;
 }
 
 .wrapperName {
+    grid-area: name;
     display: flex;
     flex-direction: column;
     row-gap: 8px;
@@ -60,6 +64,7 @@
 }
 
 .wrapperRatingPrice {
+    grid-area: ratingPrice;
     display: flex;
     font-weight: 500;
     font-size: 16px;
@@ -95,6 +100,7 @@
 }
 
 .btnFavorite {
+    grid-area: iconHeart;
     padding: 0;
     border: none;
     background-color: transparent;
@@ -141,4 +147,11 @@
 
 @media screen and (min-width: 768px) {}
 
-@media screen and (min-width: 1024px) {}
+@media screen and (min-width: 1024px) {
+    .wrapperMainInfo {
+        grid-template-areas:
+            "name ratingPrice iconHeart";
+        grid-template-columns: 1fr minmax(285px, 300px) 26px;
+        column-gap: 28px;
+    }
+}
