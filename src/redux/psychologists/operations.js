@@ -42,3 +42,17 @@ export const startFetchPsychologists = createAsyncThunk(
         }
     }
 )
+
+export const fetchPsychologistById = createAsyncThunk(
+    'contacts/fetchAll',
+    async (id, thunkAPI) => {
+        try {
+            const psychologistRef = ref(database, 'psychologists');
+            const psychologist = await get(psychologistRef);
+            console.log(psychologist.val());
+            // return psychologist.val();
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+)

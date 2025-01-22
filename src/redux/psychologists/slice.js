@@ -14,12 +14,25 @@ const INITIAL_STATE = {
         error: null,
         isLoading: false,
     },
-
+    psychologistById: {
+        item: null,
+        isLoading: false,
+    }
 }
 
 const psychologistsSlice = createSlice({
     name: "psychologists",
     initialState: INITIAL_STATE,
+
+    reducers: {
+        getPsychologistById(state, { payload }) {
+            console.log(payload);
+            console.log(state.psychologists.items);
+            // const psychologist = state.psychologists.items.find(psychologist => psychologist.id === payload);
+
+            // state.psychologistById.item = psychologist;
+        },
+    },
 
     extraReducers(builder) {
 
@@ -49,5 +62,7 @@ const psychologistsSlice = createSlice({
 })
 
 
-// export const { resetError } = psychologistsSlice.actions;
+export const {
+    getPsychologistById
+} = psychologistsSlice.actions;
 export const psychologistsReducer = psychologistsSlice.reducer;
