@@ -16,6 +16,7 @@ import {
 } from "redux-persist";
 
 import storage from "redux-persist/lib/storage";
+import { psychologistsReducer } from "./psychologists/slice.js";
 
 const authConfig = {
     key: "accessToken",
@@ -27,6 +28,7 @@ export const store = configureStore({
     reducer: {
         modals: modalsReducer,
         auth: persistReducer(authConfig, authReducer),
+        psychologists: psychologistsReducer,
         filters: filtersReducer,
     },
     middleware: (getDefaultMiddleware) =>

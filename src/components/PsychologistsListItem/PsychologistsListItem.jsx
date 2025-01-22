@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import sprite from "../../images/sprite.svg";
 import css from "./PsychologistsListItem.module.css";
 
@@ -57,6 +58,10 @@ const PsychologistsListItem = ({ item }) => {
         </ul>
 
         <p className={css.about}>{item.about}</p>
+
+        <Link className={css.linkReadMore} to={`/psychologists/${item.id}`}>
+          Read more
+        </Link>
       </div>
     </li>
   );

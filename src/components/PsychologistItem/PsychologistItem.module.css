@@ -1,10 +1,10 @@
-.psychologistsSection {
+.section {
     padding-top: 24px;
     padding-bottom: 24px;
 }
 
 @media screen and (min-width: 768px) {
-    .psychologistsSection {
+    .section {
         padding-top: 64px;
         padding-bottom: 64px;
     }
