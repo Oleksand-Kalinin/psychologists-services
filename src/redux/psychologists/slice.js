@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { startFetchPsychologists } from "./operations.js";
+import { fetchPsychologistById, startFetchPsychologists } from "./operations.js";
 
 const INITIAL_STATE = {
     psychologists: {
@@ -24,20 +24,11 @@ const psychologistsSlice = createSlice({
     name: "psychologists",
     initialState: INITIAL_STATE,
 
-    reducers: {
-        getPsychologistById(state, { payload }) {
-            console.log(payload);
-            console.log(state.psychologists.items);
-            // const psychologist = state.psychologists.items.find(psychologist => psychologist.id === payload);
-
-            // state.psychologistById.item = psychologist;
-        },
-    },
+    reducers: {},
 
     extraReducers(builder) {
 
         builder
-
             .addCase(
                 startFetchPsychologists.pending,
                 (state) => {
@@ -58,6 +49,23 @@ const psychologistsSlice = createSlice({
                     state.psychologists.error = payload;
                 })
 
+            .addCase(
+                fetchPsychologistById.pending,
+                (state) => {
+                    state.psychologistById.isLoading = true;
+                })
+            .addCase(
+                fetchPsychologistById.fulfilled,
+                (state, { payload }) => {
+                    state.psychologistById.isLoading = false;
+                    state.psychologistById.item = payload;
+                })
+            .addCase(
+                fetchPsychologistById.rejected,
+                (state, { payload }) => {
+                    state.psychologistById.isLoading = false;
+                    state.psychologistById.error = payload;
+                })
     }
 })
 
