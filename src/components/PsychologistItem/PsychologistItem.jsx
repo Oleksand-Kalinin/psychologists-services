@@ -13,12 +13,20 @@ import {
 } from "../../redux/psychologists/selectors.js";
 import { fetchPsychologistById } from "../../redux/psychologists/operations.js";
 import { clearPsychologistById } from "../../redux/psychologists/slice.js";
+import { selectModalType } from "../../redux/modals/selectors.js";
+import { openModal } from "../../redux/modals/slice.js";
+import Modal from "../Modal/Modal.jsx";
+import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
 
 const PsychologistItem = () => {
   const id = useParams("id");
   const dispatch = useDispatch();
   const psychologist = useSelector(selectPsychologistById);
   const isLoading = useSelector(selectPsychologistByIdLoading);
+  const typeModal = useSelector(selectModalType);
+
+  const showMakeAppointmentModal = () =>
+    dispatch(openModal("makeAppointmentModal"));
 
   useEffect(() => {
     dispatch(fetchPsychologistById(id));
@@ -37,7 +45,7 @@ const PsychologistItem = () => {
               <img
                 className={css.avatar}
                 src={psychologist.avatar_url}
-                alt=""
+                alt={`Photo of ${psychologist.name}`}
               />
             </div>
 
@@ -116,11 +124,20 @@ const PsychologistItem = () => {
                 </ul>
               )}
 
-              <button className={css.btnMakeAppointment} type="button">
+              <button
+                className={css.btnMakeAppointment}
+                type="button"
+                onClick={showMakeAppointmentModal}
+              >
                 Make an appointment
               </button>
             </div>
           </div>
+        )}
+        {typeModal === "makeAppointmentModal" && (
+          <Modal>
+            <MakeAppointmentForm psychologist={psychologist} />
+          </Modal>
         )}
       </Container>
     </Section>

@@ -1,0 +1,62 @@
+.container {
+    padding-top: 64px;
+    padding-bottom: 64px;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+.text {
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--color-text-invisible-05);
+    margin-bottom: 40px;
+}
+
+.wrapperPsychologistInfo {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    grid-template-areas:
+        "avatar profession"
+        "avatar name";
+    gap: 4px 14px;
+    margin-bottom: 40px;
+}
+
+.avatar {
+    grid-area: avatar;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+}
+
+.profession {
+    grid-area: profession;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+    color: var(--color-text-filter);
+}
+
+.name {
+    grid-area: name;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 600px;
+        padding: 64px;
+    }
+
+    .title {
+        font-size: 40px;
+    }
+}
