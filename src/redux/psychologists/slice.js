@@ -24,7 +24,11 @@ const psychologistsSlice = createSlice({
     name: "psychologists",
     initialState: INITIAL_STATE,
 
-    reducers: {},
+    reducers: {
+        clearPsychologistById(state) {
+            state.psychologistById.item = null;
+        },
+    },
 
     extraReducers(builder) {
 
@@ -70,7 +74,8 @@ const psychologistsSlice = createSlice({
 })
 
 
+
 export const {
-    getPsychologistById
+    clearPsychologistById
 } = psychologistsSlice.actions;
 export const psychologistsReducer = psychologistsSlice.reducer;

@@ -7,22 +7,31 @@ import sprite from "../../images/sprite.svg";
 import css from "./PsychologistItem.module.css";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPsychologistById } from "../../redux/psychologists/selectors.js";
+import {
+  selectPsychologistById,
+  selectPsychologistByIdLoading,
+} from "../../redux/psychologists/selectors.js";
 import { fetchPsychologistById } from "../../redux/psychologists/operations.js";
+import { clearPsychologistById } from "../../redux/psychologists/slice.js";
 
 const PsychologistItem = () => {
   const id = useParams("id");
   const dispatch = useDispatch();
   const psychologist = useSelector(selectPsychologistById);
+  const isLoading = useSelector(selectPsychologistByIdLoading);
 
   useEffect(() => {
     dispatch(fetchPsychologistById(id));
+    return () => {
+      dispatch(clearPsychologistById());
+    };
   }, [dispatch, id]);
 
   return (
     <Section className={css.section}>
       <Container className={css.container}>
-        {psychologist && (
+        {isLoading && <p>Loading...</p>}
+        {!isLoading && psychologist && (
           <div className={css.content}>
             <div className={css.wrapperAvatar}>
               <img
