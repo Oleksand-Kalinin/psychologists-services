@@ -93,6 +93,28 @@ const PsychologistItem = () => {
               </ul>
 
               <p className={css.about}>{psychologist.about}</p>
+
+              {psychologist.reviews.length > 0 && (
+                <ul className={css.reviewsWrapper}>
+                  {psychologist.reviews.map((r, index) => {
+                    return (
+                      <li className={css.reviews} key={index}>
+                        <div className={css.reviewsAvatar}>
+                          {r.reviewer.slice(0, 1)}
+                        </div>
+                        <p className={css.reviewsName}>{r.reviewer}</p>
+                        <div className={css.reviewsRating}>
+                          <svg className={css.iconStar}>
+                            <use href={`${sprite}#star-icon`}></use>
+                          </svg>
+                          <p>{r.rating}</p>
+                        </div>
+                        <p className={css.reviewsComment}>{r.comment}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </div>
           </div>
         )}

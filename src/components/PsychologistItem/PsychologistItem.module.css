@@ -4,7 +4,7 @@
 }
 
 .content {
-    padding: 16px;
+    padding: 24px 16px;
     border-radius: 24px;
     background-color: var(--background-color-home);
 
@@ -146,6 +146,63 @@
 .about {
     font-size: 14px;
     line-height: 1.5;
+    color: var(--color-text-invisible-05);
+    padding-bottom: 24px;
+}
+
+.reviewsWrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+.reviews {
+    display: grid;
+    grid-template-areas:
+        "avatar title"
+        "avatar rating"
+        "comment comment";
+    grid-template-columns: 44px 1fr;
+    gap: 4px 12px;
+}
+
+.reviewsAvatar {
+    grid-area: avatar;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: var(--font-color);
+
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--main-color);
+}
+
+.reviewsName {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+}
+
+.reviewsRating {
+    grid-area: rating;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+
+    font-weight: 500;
+    line-height: 1.29;
+    padding-bottom: 14px;
+}
+
+.reviewsComment {
+    grid-area: comment;
+    font-size: 16px;
+    line-height: 1.25;
     color: var(--color-text-invisible-05);
 }
 
