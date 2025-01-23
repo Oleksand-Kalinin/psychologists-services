@@ -115,6 +115,10 @@ const PsychologistItem = () => {
                   })}
                 </ul>
               )}
+
+              <button className={css.btnMakeAppointment} type="button">
+                Make an appointment
+              </button>
             </div>
           </div>
         )}

@@ -154,6 +154,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 25px;
+    padding-bottom: 16px;
 }
 
 .reviews {
@@ -204,6 +205,27 @@
     font-size: 16px;
     line-height: 1.25;
     color: var(--color-text-invisible-05);
+}
+
+.btnMakeAppointment {
+    align-self: flex-start;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 32px;
+    min-width: 227px;
+    background-color: var(--main-color);
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--background-color-home);
+    transition: background-color 250ms linear;
+}
+
+.btnMakeAppointment:hover,
+.btnMakeAppointment:focus {
+    background-color: var(--color-focus);
 }
 
 @media screen and (min-width: 768px) {
