@@ -50,6 +50,10 @@
     display: none;
 }
 
+.datepickerTime .react-datepicker__time-list-item--disabled {
+    display: none;
+}
+
 .datepickerTime .react-datepicker__triangle {
     display: none;
 }

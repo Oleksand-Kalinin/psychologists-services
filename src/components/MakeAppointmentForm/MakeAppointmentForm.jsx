@@ -12,7 +12,7 @@ import clsx from "clsx";
 
 const MakeAppointmentForm = ({ psychologist }) => {
   const startOfDay = new Date();
-  startOfDay.setHours(0, 0, 0, 0);
+  startOfDay.setHours(0, 0);
 
   const [selectedTime, setSelectedTime] = useState(startOfDay);
 
@@ -89,6 +89,8 @@ const MakeAppointmentForm = ({ psychologist }) => {
               timeIntervals={30}
               timeCaption="Meeting time"
               timeFormat="HH:mm"
+              minTime={new Date().setHours(8, 59)}
+              maxTime={new Date().setHours(18, 0)}
             />
             <input type="hidden" {...register("time")} />
 
@@ -97,15 +99,6 @@ const MakeAppointmentForm = ({ psychologist }) => {
             </svg>
           </div>
         </div>
-
-        {/* <div className={css.wrapperInput}>
-          <input
-            className={css.input}
-            defaultValue={"00:00"}
-            {...register("time")}
-          />
-          <span className={css.error}>{errors.time?.message}</span>
-        </div> */}
 
         <div className={css.wrapperInput}>
           <input
