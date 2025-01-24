@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import { useEffect, useState } from "react";
 // import { yupResolver } from "@hookform/resolvers/yup";
 
+import sprite from "../../images/sprite.svg";
 import "react-datepicker/dist/react-datepicker.css";
 import "./datePicker.css";
 import css from "./MakeAppointmentForm.module.css";
@@ -71,7 +72,13 @@ const MakeAppointmentForm = ({ psychologist }) => {
             <span className={css.error}>{errors.telephoneNumber?.message}</span>
           </div>
 
-          <div className={clsx(css.wrapperInput, "datepickerTime")}>
+          <div
+            className={clsx(
+              css.wrapperInput,
+              css.wrapperTime,
+              "datepickerTime"
+            )}
+          >
             <DatePicker
               className={css.input}
               dateFormat="HH:mm"
@@ -82,9 +89,12 @@ const MakeAppointmentForm = ({ psychologist }) => {
               timeIntervals={30}
               timeCaption="Meeting time"
               timeFormat="HH:mm"
-              //   {...register("time")}
             />
             <input type="hidden" {...register("time")} />
+
+            <svg className={css.iconClock}>
+              <use href={`${sprite}#clock-icon`}></use>
+            </svg>
           </div>
         </div>
 

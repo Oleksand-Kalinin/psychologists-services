@@ -77,6 +77,23 @@
     gap: 8px;
 }
 
+.wrapperTime {
+    position: relative;
+}
+
+.iconClock {
+    pointer-events: none;
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: var(--color-text);
+
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+}
+
 .wrapperTextarea {
     padding-bottom: 24px;
 }
@@ -84,7 +101,6 @@
 .textarea {
     resize: none;
     height: 116px;
-    /* padding-bottom: 24px; */
 }
 
 .btn {
