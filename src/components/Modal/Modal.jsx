@@ -37,6 +37,7 @@ function Modal({ children }) {
     padding: "0",
     transform: "translate(-50%, -50%)",
     borderRadius: "30px",
+    backgroundColor: "var(--background-color-home)",
   };
 
   const customStyles = {

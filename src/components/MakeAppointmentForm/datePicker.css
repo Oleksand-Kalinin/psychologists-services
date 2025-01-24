@@ -1,0 +1,52 @@
+.datepickerTime .react-datepicker {
+    width: 151px;
+    border: none;
+    border-radius: 12px;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    text-align: center;
+    background-color: var(--color-background-filters-popover);
+    /* background-color: var(--main-color); */
+}
+
+.datepickerTime .react-datepicker__header {
+    background-color: transparent;
+
+
+}
+
+.datepickerTime .react-datepicker-time__header {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-text);
+}
+
+.datepickerTime .react-datepicker__time-container {
+    width: 100%;
+}
+
+.datepickerTime .react-datepicker__time {
+    background-color: transparent;
+}
+
+.datepickerTime .react-datepicker__time-list {
+    overflow: auto;
+    color: var(--color-text-inactive);
+}
+
+.datepickerTime .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
+    background-color: transparent;
+    color: var(--color-text);
+}
+
+.datepickerTime .react-datepicker__time-list::-webkit-scrollbar {
+    display: none;
+}
+
+.datepickerTime .react-datepicker__triangle {
+    display: none;
+}

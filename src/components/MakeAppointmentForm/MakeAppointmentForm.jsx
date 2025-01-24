@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 // import { yupResolver } from "@hookform/resolvers/yup";
 
 import "react-datepicker/dist/react-datepicker.css";
+import "./datePicker.css";
 import css from "./MakeAppointmentForm.module.css";
 import clsx from "clsx";
 
@@ -70,7 +71,7 @@ const MakeAppointmentForm = ({ psychologist }) => {
             <span className={css.error}>{errors.telephoneNumber?.message}</span>
           </div>
 
-          <div className={css.wrapperInput}>
+          <div className={clsx(css.wrapperInput, "datepickerTime")}>
             <DatePicker
               className={css.input}
               dateFormat="HH:mm"
