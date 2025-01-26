@@ -4,26 +4,3 @@
     row-gap: 32px;
     margin-bottom: 64px;
 }
-
-.btnLoadMore {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border: none;
-    border-radius: 30px;
-    padding: 14px 48px;
-    min-width: 176px;
-    background-color: var(--main-color);
-
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    color: var(--background-color-home);
-    transition: background-color 250ms linear;
-}
-
-.btnLoadMore:hover,
-.btnLoadMore:focus {
-    background-color: var(--color-focus);
-}

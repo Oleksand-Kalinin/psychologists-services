@@ -2,14 +2,17 @@ import { useEffect } from "react";
 import css from "./FiltersPopover.module.css";
 import { useDispatch } from "react-redux";
 import { changeFilter } from "../../redux/filters/slice.js";
+import { useSearchParams } from "react-router-dom";
 
 const FiltersPopover = ({ closeFiltersPopover, wrapperFiltersRef }) => {
   const dispatch = useDispatch();
+  const [, setSearchParams] = useSearchParams();
 
   const handleClick = (event) => {
     if (event.target.tagName === "BUTTON") {
       const filterOption = event.target.textContent;
       dispatch(changeFilter(filterOption));
+      setSearchParams({ filter: filterOption });
       closeFiltersPopover();
     }
   };
@@ -38,7 +41,7 @@ const FiltersPopover = ({ closeFiltersPopover, wrapperFiltersRef }) => {
       window.removeEventListener("keydown", handleClickDown);
       window.removeEventListener("mousedown", handleClickBackDrop);
     };
-  }, []);
+  }, [closeFiltersPopover, wrapperFiltersRef]);
 
   return (
     <div className={css.wrapperFiltersPopover} onClick={handleClick}>

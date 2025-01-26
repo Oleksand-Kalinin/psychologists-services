@@ -4,14 +4,54 @@ import Section from "../Section/Section.jsx";
 
 import css from "./PsychologistsSection.module.css";
 import PsychologistsList from "../PsychologistsList/PsychologistsList.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import {
+  selectError,
+  selectIsLoading,
+  selectTotalPages,
+} from "../../redux/psychologists/selectors.js";
+import { startFetchPsychologists } from "../../redux/psychologists/operations.js";
+import { useSearchParams } from "react-router-dom";
 
 const PsychologistsSection = () => {
+  const [searchParams] = useSearchParams();
+  const filterSearchParam = searchParams.get("filter");
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
+  const totalPages = useSelector(selectTotalPages);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
+  const handleClickLoadMore = () => {};
+
+  useEffect(() => {
+    setPage(1);
+    dispatch(startFetchPsychologists(filterSearchParam));
+    // testFn();
+  }, [dispatch, filterSearchParam]);
+
   return (
     <Section className={css.psychologistsSection}>
       <Container>
         <h2 className="visually-hidden">Psychologists</h2>
-        <FiltersBtn />
-        <PsychologistsList />
+        {isLoading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        {!isLoading && !error && (
+          <>
+            <FiltersBtn />
+            <PsychologistsList />
+            {page < totalPages && (
+              <button
+                className={css.btnLoadMore}
+                type="button"
+                onClick={handleClickLoadMore}
+              >
+                Load more
+              </button>
+            )}
+          </>
+        )}
       </Container>
     </Section>
   );

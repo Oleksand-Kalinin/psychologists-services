@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { get, limitToFirst, limitToLast, orderByChild, query, ref } from "firebase/database";
+import { get, limitToFirst, orderByChild, query, ref } from "firebase/database";
 import { database } from "../../../firebaseConfig.js";
 
 const PER_PAGE = 4;
 
 export const startFetchPsychologists = createAsyncThunk(
     'psychologists/startFetch',
-    async (_, thunkAPI) => {
+    async (payload, thunkAPI) => {
         try {
-
+            console.log(payload);
             const psychologistsRef = ref(database, "psychologists");
 
             const queryLimitPsychologists = query(
