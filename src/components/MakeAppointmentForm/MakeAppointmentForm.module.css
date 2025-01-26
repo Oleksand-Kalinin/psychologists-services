@@ -56,6 +56,10 @@
     gap: 8px;
 }
 
+.wrapperInput {
+    position: relative;
+}
+
 .input {
     width: 100%;
     border: 1px solid var(--color-text-header-line);
@@ -122,6 +126,11 @@
 .btn:hover,
 .btn:focus {
     background-color: var(--color-focus);
+}
+
+.btn:disabled {
+    background-color: var(--color-text-inactive);
+    cursor: not-allowed;
 }
 
 .error {

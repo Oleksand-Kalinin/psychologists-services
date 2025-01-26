@@ -4,23 +4,37 @@ import css from "./PsychologistsList.module.css";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPsychologists } from "../../redux/psychologists/selectors.js";
-import { startFetchPsychologists } from "../../redux/psychologists/operations.js";
+import {
+  selectError,
+  selectIsLoading,
+  selectPsychologists,
+} from "../../redux/psychologists/selectors.js";
+import {
+  startFetchPsychologists,
+  // testFn,
+} from "../../redux/psychologists/operations.js";
 
 const PsychologistsList = () => {
   const dispatch = useDispatch();
   const psychologists = useSelector(selectPsychologists);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(startFetchPsychologists());
+    // testFn();
   }, [dispatch]);
 
   return (
-    <ul className={css.list}>
-      {psychologists.items.map((item) => (
-        <PsychologistsListItem item={item} key={item.id} />
-      ))}
-    </ul>
+    <>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      <ul className={css.list}>
+        {psychologists.items.map((item) => (
+          <PsychologistsListItem item={item} key={item.id} />
+        ))}
+      </ul>
+    </>
   );
 };
 

@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import Container from "../Container/Container.jsx";
 import DatePicker from "react-datepicker";
 import { useEffect, useState } from "react";
-// import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import sprite from "../../images/sprite.svg";
 import "react-datepicker/dist/react-datepicker.css";
 import "./datePicker.css";
 import css from "./MakeAppointmentForm.module.css";
 import clsx from "clsx";
+import { MakeAppointmentValidationSchema } from "../../js/validation/validationSchemas.js";
 
 const MakeAppointmentForm = ({ psychologist }) => {
   const startOfDay = new Date();
@@ -22,10 +23,9 @@ const MakeAppointmentForm = ({ psychologist }) => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    // resolver: yupResolver(RegistrationValidationSchema),
-    // mode: "onChange",
+    resolver: yupResolver(MakeAppointmentValidationSchema),
+    mode: "onChange",
   });
-
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -67,9 +67,9 @@ const MakeAppointmentForm = ({ psychologist }) => {
             <input
               className={css.input}
               defaultValue={"+380"}
-              {...register("telephoneNumber")}
+              {...register("phoneNumber")}
             />
-            <span className={css.error}>{errors.telephoneNumber?.message}</span>
+            <span className={css.error}>{errors.phoneNumber?.message}</span>
           </div>
 
           <div
@@ -83,7 +83,10 @@ const MakeAppointmentForm = ({ psychologist }) => {
               className={css.input}
               dateFormat="HH:mm"
               selected={selectedTime}
-              onChange={(time) => setSelectedTime(time)}
+              onChange={(time) => {
+                setSelectedTime(time);
+                setValue("time", time);
+              }}
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={30}
@@ -97,6 +100,7 @@ const MakeAppointmentForm = ({ psychologist }) => {
             <svg className={css.iconClock}>
               <use href={`${sprite}#clock-icon`}></use>
             </svg>
+            <span className={css.error}>{errors.time?.message}</span>
           </div>
         </div>
 

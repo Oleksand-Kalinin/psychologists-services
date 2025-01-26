@@ -14,6 +14,12 @@
         position: relative;
         color: inherit;
         font-size: 30px;
+        transition: color 250ms linear;
+    }
+
+    .link:hover,
+    .link:focus {
+        color: var(--color-focus);
     }
 
     .activeLink::before {

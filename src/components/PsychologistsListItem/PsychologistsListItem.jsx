@@ -1,8 +1,24 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import sprite from "../../images/sprite.svg";
 import css from "./PsychologistsListItem.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "../../redux/modals/slice.js";
+import Modal from "../Modal/Modal.jsx";
+import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
+import { selectModalType } from "../../redux/modals/selectors.js";
 
 const PsychologistsListItem = ({ item }) => {
+  const dispatch = useDispatch();
+  const typeModal = useSelector(selectModalType);
+  const [showMore, setShowMore] = useState(false);
+
+  const handleClickReadMore = () => {
+    setShowMore(!showMore);
+  };
+
+  const showMakeAppointmentModal = () =>
+    dispatch(openModal("makeAppointmentModal"));
+
   return (
     <li className={css.item}>
       <div className={css.wrapperAvatar}>
@@ -59,10 +75,51 @@ const PsychologistsListItem = ({ item }) => {
 
         <p className={css.about}>{item.about}</p>
 
-        <Link className={css.linkReadMore} to={`/psychologists/${item.id}`}>
+        <button
+          type="button"
+          className={css.btnReadMore}
+          onClick={handleClickReadMore}
+        >
           Read more
-        </Link>
+        </button>
+
+        {showMore && (
+          <>
+            <ul className={css.reviewsWrapper}>
+              {item.reviews.map((r, index) => {
+                return (
+                  <li className={css.reviews} key={index}>
+                    <div className={css.reviewsAvatar}>
+                      {r.reviewer.slice(0, 1)}
+                    </div>
+                    <p className={css.reviewsName}>{r.reviewer}</p>
+                    <div className={css.reviewsRating}>
+                      <svg className={css.iconStar}>
+                        <use href={`${sprite}#star-icon`}></use>
+                      </svg>
+                      <p>{r.rating}</p>
+                    </div>
+                    <p className={css.reviewsComment}>{r.comment}</p>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <button
+              className={css.btnMakeAppointment}
+              type="button"
+              onClick={showMakeAppointmentModal}
+            >
+              Make an appointment
+            </button>
+          </>
+        )}
       </div>
+      {typeModal === "makeAppointmentModal" && (
+        <Modal>
+          <MakeAppointmentForm psychologist={item} />
+        </Modal>
+      )}
     </li>
   );
 };

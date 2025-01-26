@@ -29,3 +29,22 @@ export const RegistrationValidationSchema = yup
             .required("Password is required"),
     })
     .required();
+
+export const MakeAppointmentValidationSchema = yup
+    .object({
+        userName: yup
+            .string()
+            .min(2, "The name must be at least 2 characters long")
+            .required("Name is required"),
+        phoneNumber: yup
+            .number()
+            .typeError("Phone number must be a number")
+            .required("Phone number is required"),
+        email: yup
+            .string()
+            .email("Incorrect email address")
+            .required("Email is required"),
+        comment: yup
+            .string(),
+    })
+    .required();

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { get, limitToFirst, query, ref } from "firebase/database";
+import { get, limitToFirst, limitToLast, orderByChild, query, ref } from "firebase/database";
 import { database } from "../../../firebaseConfig.js";
 
-const PER_PAGE = 3;
+const PER_PAGE = 4;
 
 export const startFetchPsychologists = createAsyncThunk(
     'psychologists/startFetch',
@@ -26,12 +26,19 @@ export const startFetchPsychologists = createAsyncThunk(
             ]);
 
             const limitedPsychologists = limitedResult.exists()
-                ? limitedResult.val()
+                ? Object.entries(limitedResult.val()).map(([id, data]) => ({
+                    id,
+                    ...data,
+                }))
                 : [];
 
             const totalPsychologistsCount = allResult.exists()
-                ? allResult.val().length
+                ? Object.entries(allResult.val()).length
                 : null;
+
+            console.log(limitedPsychologists);
+            console.log(totalPsychologistsCount);
+
 
             return {
                 items: limitedPsychologists,
@@ -43,16 +50,49 @@ export const startFetchPsychologists = createAsyncThunk(
     }
 )
 
-export const fetchPsychologistById = createAsyncThunk(
-    'contacts/fetchAll',
-    async ({ id }, thunkAPI) => {
-        try {
-            const psychologistsRef = ref(database, 'psychologists');
-            const result = await get(psychologistsRef);
-            const psychologist = result.val().find((psychologist) => psychologist.id === id);
-            return psychologist;
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
+
+export const testFn = async () => {
+    console.log("start testFn");
+
+    try {
+        // Створюємо запит з сортуванням за полем "rating"
+        const psychologistsRef = ref(database, "temp");
+        const sortedQuery = query(
+            psychologistsRef,
+            orderByChild("name"),
+            limitToFirst(5),
+        );
+
+        // Отримуємо дані
+        const snapshot = await get(sortedQuery);
+
+        if (snapshot.exists()) {
+            const psychologists = snapshot.val();
+
+            console.log("Відсортовані психологи (прямо з Firebase):", psychologists);
+        } else {
+            console.log("Дані відсутні.");
+            return [];
         }
+    } catch (error) {
+        console.error("Помилка при отриманні даних:", error);
     }
-)
+
+
+    // Find psychologist by ID
+    // const id = "5b24a5c7-1215-41ed-bd92-b234460bd056";
+    // try {
+    //     const psychologistRef = ref(database, `psychologists/${id}`); // Посилання на вузол
+    //     const snapshot = await get(psychologistRef); // Отримання даних
+    //     if (snapshot.exists()) {
+    //         const psychologist = snapshot.val();
+    //         console.log("Психолог знайдений:", psychologist);
+    //         return psychologist;
+    //     } else {
+    //         console.log("Психолог з таким ID не знайдений.");
+    //         return null;
+    //     }
+    // } catch (error) {
+    //     console.error("Помилка при отриманні даних:", error);
+    // }
+}

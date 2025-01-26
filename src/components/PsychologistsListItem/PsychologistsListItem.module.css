@@ -110,6 +110,12 @@
     align-items: center;
     width: 26px;
     height: 26px;
+    transition: transform 250ms linear;
+}
+
+.btnFavorite:hover,
+.btnFavorite:focus {
+    transform: scale(1.1);
 }
 
 .iconHeart {
@@ -144,7 +150,11 @@
     color: var(--color-text-invisible-05);
 }
 
-.linkReadMore {
+.btnReadMore {
+    align-self: self-start;
+    border: none;
+    padding: 0;
+    background-color: transparent;
     margin-top: -10px;
     font-weight: 500;
     font-size: 14px;
@@ -152,6 +162,90 @@
     text-decoration: underline;
     text-decoration-skip-ink: none;
     color: var(--color-text);
+    transition: color 250ms linear;
+}
+
+.btnReadMore:hover,
+.btnReadMore:focus {
+    color: var(--color-focus);
+}
+
+.reviewsWrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+    padding-bottom: 16px;
+}
+
+.reviews {
+    display: grid;
+    grid-template-areas:
+        "avatar title"
+        "avatar rating"
+        "comment comment";
+    grid-template-columns: 44px 1fr;
+    gap: 4px 12px;
+}
+
+.reviewsAvatar {
+    grid-area: avatar;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: var(--font-color);
+
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--main-color);
+}
+
+.reviewsName {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+}
+
+.reviewsRating {
+    grid-area: rating;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+
+    font-weight: 500;
+    line-height: 1.29;
+    padding-bottom: 14px;
+}
+
+.reviewsComment {
+    grid-area: comment;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--color-text-invisible-05);
+}
+
+.btnMakeAppointment {
+    align-self: flex-start;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 32px;
+    min-width: 227px;
+    background-color: var(--main-color);
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--background-color-home);
+    transition: background-color 250ms linear;
+}
+
+.btnMakeAppointment:hover,
+.btnMakeAppointment:focus {
+    background-color: var(--color-focus);
 }
 
 @media screen and (min-width: 768px) {
