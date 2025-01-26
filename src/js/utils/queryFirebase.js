@@ -3,100 +3,31 @@ import { database } from "../../../firebaseConfig.js";
 
 export const getQueries = (payload, perPage) => {
     const psychologistsRef = ref(database, "psychologists");
-    let limitItems, allItems;
 
-    if (payload === "A to Z") {
-        limitItems = query(
-            psychologistsRef,
-            orderByChild("name"),
-            limitToFirst(perPage),
-        );
+    const sortConfig = {
+        "A to Z": { field: "name", limitMethod: limitToFirst },
+        "Z to A": { field: "name", limitMethod: limitToLast },
+        "Less than 10$": { field: "price_per_hour", limitMethod: limitToFirst },
+        "Greater than 10$": { field: "price_per_hour", limitMethod: limitToLast },
+        "Popular": { field: "rating", limitMethod: limitToLast },
+        "Not popular": { field: "rating", limitMethod: limitToFirst },
+    };
 
-        allItems = query(
-            psychologistsRef,
-            orderByChild("name"),
-        );
-    }
+    const config = sortConfig[payload] || {};
+    const { field = null, limitMethod = limitToFirst } = config;
 
-    else if (payload === "Z to A") {
-        limitItems = query(
-            psychologistsRef,
-            orderByChild("name"),
-            limitToLast(perPage),
-        );
+    const limitItems = field
+        ? query(psychologistsRef, orderByChild(field), limitMethod(perPage))
+        : query(psychologistsRef, limitToFirst(perPage));
 
-        allItems = query(
-            psychologistsRef,
-            orderByChild("name"),
-        );
-    }
-
-    else if (payload === "Less than 10$") {
-        limitItems = query(
-            psychologistsRef,
-            orderByChild("price_per_hour"),
-            limitToFirst(perPage),
-        );
-
-        allItems = query(
-            psychologistsRef,
-            orderByChild("price_per_hour"),
-        );
-    }
-
-    else if (payload === "Greater than 10$") {
-        limitItems = query(
-            psychologistsRef,
-            orderByChild("price_per_hour"),
-            limitToLast(perPage),
-        );
-
-        allItems = query(
-            psychologistsRef,
-            orderByChild("price_per_hour"),
-        );
-    }
-
-    else if (payload === "Popular") {
-        limitItems = query(
-            psychologistsRef,
-            orderByChild("rating"),
-            limitToLast(perPage),
-        );
-
-        allItems = query(
-            psychologistsRef,
-            orderByChild("rating"),
-        );
-    }
-
-    else if (payload === "Not popular") {
-        limitItems = query(
-            psychologistsRef,
-            orderByChild("rating"),
-            limitToFirst(perPage),
-        );
-
-        allItems = query(
-            psychologistsRef,
-            orderByChild("rating"),
-        );
-    }
-
-    else {
-        limitItems = query(
-            psychologistsRef,
-            limitToFirst(perPage),
-        );
-        allItems = query(
-            psychologistsRef,
-        );
-    }
+    const allItems = field
+        ? query(psychologistsRef, orderByChild(field))
+        : query(psychologistsRef);
 
     return {
         limitItems,
         allItems,
-    }
+    };
 
 }
 
