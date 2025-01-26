@@ -3,11 +3,11 @@ import { startFetchPsychologists } from "./operations.js";
 
 const INITIAL_STATE = {
     psychologists: {
-        totalItems: null,
+        totalPages: null,
         items: [],
     },
     favoritesPsychologists: {
-        totalItems: null,
+        totalPages: null,
         items: [],
     },
     error: null,
@@ -32,7 +32,7 @@ const psychologistsSlice = createSlice({
                 (state, { payload }) => {
                     state.isLoading = false;
 
-                    state.psychologists.totalItems = payload.totalItems;
+                    state.psychologists.totalPages = payload.totalPages;
                     state.psychologists.items = payload.items;
                 })
             .addCase(

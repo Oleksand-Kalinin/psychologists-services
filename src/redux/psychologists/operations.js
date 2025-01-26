@@ -36,13 +36,11 @@ export const startFetchPsychologists = createAsyncThunk(
                 ? Object.entries(allResult.val()).length
                 : null;
 
-            console.log(limitedPsychologists);
-            console.log(totalPsychologistsCount);
-
+            const totalPages = Math.ceil(totalPsychologistsCount / PER_PAGE);
 
             return {
                 items: limitedPsychologists,
-                totalItems: totalPsychologistsCount
+                totalPages,
             };
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);

@@ -248,6 +248,8 @@
     background-color: var(--color-focus);
 }
 
+
+
 @media screen and (min-width: 768px) {
     .item {
         padding: 24px;

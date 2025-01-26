@@ -2,12 +2,13 @@ import PsychologistsListItem from "../PsychologistsListItem/PsychologistsListIte
 
 import css from "./PsychologistsList.module.css";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectError,
   selectIsLoading,
   selectPsychologists,
+  selectTotalPages,
 } from "../../redux/psychologists/selectors.js";
 import {
   startFetchPsychologists,
@@ -17,6 +18,8 @@ import {
 const PsychologistsList = () => {
   const dispatch = useDispatch();
   const psychologists = useSelector(selectPsychologists);
+  const [page] = useState(1);
+  const totalPages = useSelector(selectTotalPages);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
@@ -34,6 +37,11 @@ const PsychologistsList = () => {
           <PsychologistsListItem item={item} key={item.id} />
         ))}
       </ul>
+      {page < totalPages && (
+        <button className={css.btnLoadMore} type="button">
+          Load more
+        </button>
+      )}
     </>
   );
 };
