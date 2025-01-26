@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { get, limitToFirst, orderByChild, query, ref } from "firebase/database";
 import { database } from "../../../firebaseConfig.js";
+import { getQueries } from "../../js/utils/queryFirebase.js";
 
 const PER_PAGE = 4;
 
@@ -8,21 +9,11 @@ export const startFetchPsychologists = createAsyncThunk(
     'psychologists/startFetch',
     async (payload, thunkAPI) => {
         try {
-            console.log(payload);
-            const psychologistsRef = ref(database, "psychologists");
-
-            const queryLimitPsychologists = query(
-                psychologistsRef,
-                limitToFirst(PER_PAGE),
-            );
-
-            const queryAllPsychologists = query(
-                psychologistsRef,
-            );
+            const { limitItems, allItems } = getQueries(payload, PER_PAGE);
 
             const [limitedResult, allResult] = await Promise.all([
-                get(queryLimitPsychologists),
-                get(queryAllPsychologists),
+                get(limitItems),
+                get(allItems),
             ]);
 
             const limitedPsychologists = limitedResult.exists()
@@ -54,11 +45,11 @@ export const testFn = async () => {
 
     try {
         // Створюємо запит з сортуванням за полем "rating"
-        const psychologistsRef = ref(database, "temp");
+        const psychologistsRef = ref(database, "psychologists");
         const sortedQuery = query(
             psychologistsRef,
-            orderByChild("name"),
-            limitToFirst(5),
+            orderByChild("rating"),
+            limitToFirst(PER_PAGE),
         );
 
         // Отримуємо дані
