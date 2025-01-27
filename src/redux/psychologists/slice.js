@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { startFetchPsychologists } from "./operations.js";
+import { fetchPsychologists } from "./operations.js";
 
 const INITIAL_STATE = {
     psychologists: {
         totalPages: null,
         items: [],
+        lastItem: null,
     },
     favoritesPsychologists: {
         totalPages: null,
         items: [],
+        lastItem: null,
     },
     error: null,
     isLoading: false,
@@ -22,21 +24,22 @@ const psychologistsSlice = createSlice({
 
         builder
             .addCase(
-                startFetchPsychologists.pending,
+                fetchPsychologists.pending,
                 (state) => {
                     state.error = null;
                     state.isLoading = true;
                 })
             .addCase(
-                startFetchPsychologists.fulfilled,
+                fetchPsychologists.fulfilled,
                 (state, { payload }) => {
                     state.isLoading = false;
 
                     state.psychologists.totalPages = payload.totalPages;
                     state.psychologists.items = payload.items;
+                    state.psychologists.lastItem = payload.lastItem;
                 })
             .addCase(
-                startFetchPsychologists.rejected,
+                fetchPsychologists.rejected,
                 (state, { payload }) => {
                     state.isLoading = false;
                     state.error = payload;

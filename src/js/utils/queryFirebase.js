@@ -1,7 +1,7 @@
 import { limitToFirst, limitToLast, orderByChild, query, ref } from "firebase/database";
 import { database } from "../../../firebaseConfig.js";
 
-export const getQueries = (payload, perPage) => {
+export const getQueries = (filterSearchParam, perPage) => {
     const psychologistsRef = ref(database, "psychologists");
 
     const sortConfig = {
@@ -13,7 +13,7 @@ export const getQueries = (payload, perPage) => {
         "Not popular": { field: "rating", limitMethod: limitToFirst },
     };
 
-    const config = sortConfig[payload] || {};
+    const config = sortConfig[filterSearchParam] || {};
     const { field = null, limitMethod = limitToFirst } = config;
 
     const limitItems = field

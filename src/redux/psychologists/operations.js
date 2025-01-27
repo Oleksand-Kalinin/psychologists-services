@@ -2,14 +2,21 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { get, limitToFirst, orderByChild, query, ref } from "firebase/database";
 import { database } from "../../../firebaseConfig.js";
 import { getQueries } from "../../js/utils/queryFirebase.js";
+import { sortPsychologists } from "../../js/utils/sort.js";
 
 const PER_PAGE = 4;
+// startAfter(lastItem[payload], lastItem.id)
 
-export const startFetchPsychologists = createAsyncThunk(
-    'psychologists/startFetch',
+export const fetchPsychologists = createAsyncThunk(
+    'psychologists/fetch',
     async (payload, thunkAPI) => {
         try {
-            const { limitItems, allItems } = getQueries(payload, PER_PAGE);
+            const { filterSearchParam, page = 1 } = payload;
+
+            const {
+                limitItems,
+                allItems
+            } = getQueries(filterSearchParam, PER_PAGE, page);
 
             const [limitedResult, allResult] = await Promise.all([
                 get(limitItems),
@@ -21,25 +28,20 @@ export const startFetchPsychologists = createAsyncThunk(
                     id,
                     ...data,
                 }))
-                    .sort((a, b) => {
-                        if (payload === "A to Z") return a.name.localeCompare(b.name);
-                        if (payload === "Z to A") return b.name.localeCompare(a.name);
-                        if (payload === "Less than 10$") return a.price_per_hour - b.price_per_hour;
-                        if (payload === "Greater than 10$") return b.price_per_hour - a.price_per_hour;
-                        if (payload === "Popular") return b.rating - a.rating;
-                        if (payload === "Not popular") return a.rating - b.rating;
-                        return 0;
-                    })
                 : [];
+
+            const sortedLimitedPsychologists = sortPsychologists(limitedPsychologists, filterSearchParam);
 
             const totalPsychologistsCount = allResult.exists()
                 ? Object.entries(allResult.val()).length
                 : null;
 
             const totalPages = Math.ceil(totalPsychologistsCount / PER_PAGE);
+            const lastItem = sortedLimitedPsychologists[sortedLimitedPsychologists.length - 1] || null;
 
             return {
-                items: limitedPsychologists,
+                items: sortedLimitedPsychologists,
+                lastItem,
                 totalPages,
             };
         } catch (error) {
