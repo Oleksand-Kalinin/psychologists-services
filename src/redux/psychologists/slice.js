@@ -34,8 +34,13 @@ const psychologistsSlice = createSlice({
                 (state, { payload }) => {
                     state.isLoading = false;
 
-                    state.psychologists.totalPages = payload.totalPages;
-                    state.psychologists.items = payload.items;
+                    if (payload.page > 1) {
+                        state.psychologists.items.push(...payload.items);
+                    } else {
+                        state.psychologists.items = payload.items;
+                        state.psychologists.totalPages = payload.totalPages;
+                    }
+
                     state.psychologists.lastItem = payload.lastItem;
                 })
             .addCase(

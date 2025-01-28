@@ -26,6 +26,11 @@
     background-color: var(--color-focus);
 }
 
+.btnLoadMore:disabled {
+    background-color: var(--color-text-inactive);
+    cursor: not-allowed;
+}
+
 @media screen and (min-width: 768px) {
     .psychologistsSection {
         padding-top: 64px;

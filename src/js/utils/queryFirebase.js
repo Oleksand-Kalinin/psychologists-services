@@ -61,7 +61,7 @@ export const getQueriesNextPage = (filterSearchParam, perPage, lastItem) => {
                 : query(
                     psychologistsRef,
                     orderByChild(field),
-                    endBefore(lastItem[field]),
+                    endBefore(lastItem[field], lastItem.id),
                     limitMethod(perPage)
                 );
     } else {

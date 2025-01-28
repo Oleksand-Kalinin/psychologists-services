@@ -9,12 +9,10 @@ import { useEffect, useState } from "react";
 import {
   selectError,
   selectIsLoading,
+  selectPsychologists,
   selectTotalPages,
 } from "../../redux/psychologists/selectors.js";
-import {
-  fetchPsychologists,
-  testFn,
-} from "../../redux/psychologists/operations.js";
+import { fetchPsychologists } from "../../redux/psychologists/operations.js";
 import { useSearchParams } from "react-router-dom";
 
 const PsychologistsSection = () => {
@@ -22,29 +20,29 @@ const PsychologistsSection = () => {
   const filterSearchParam = searchParams.get("filter");
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
+  const psychologists = useSelector(selectPsychologists);
   const totalPages = useSelector(selectTotalPages);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
   const handleClickLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
-    // dispatch(fetchPsychologists({ filterSearchParam, page: page + 1 }));
-    dispatch(testFn({ filterSearchParam, page: page + 1 }));
+    dispatch(fetchPsychologists({ filterSearchParam, page: page + 1 }));
+    // dispatch(testFn({ filterSearchParam, page: page + 1 }));
   };
 
   useEffect(() => {
     setPage(1);
     dispatch(fetchPsychologists({ filterSearchParam }));
-    // testFn();
   }, [dispatch, filterSearchParam]);
 
   return (
     <Section className={css.psychologistsSection}>
       <Container>
         <h2 className="visually-hidden">Psychologists</h2>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && psychologists.items.length === 0 && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        {!isLoading && !error && (
+        {!error && psychologists.items.length > 0 && (
           <>
             <FiltersBtn />
             <PsychologistsList />
@@ -53,8 +51,9 @@ const PsychologistsSection = () => {
                 className={css.btnLoadMore}
                 type="button"
                 onClick={handleClickLoadMore}
+                disabled={isLoading}
               >
-                Load more
+                {isLoading ? "Loading..." : "Load more"}
               </button>
             )}
           </>
