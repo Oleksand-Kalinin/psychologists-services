@@ -1,4 +1,4 @@
-import { limitToFirst, limitToLast, orderByChild, query, ref } from "firebase/database";
+import { endBefore, limitToFirst, limitToLast, orderByChild, orderByKey, query, ref, startAfter } from "firebase/database";
 import { database } from "../../../firebaseConfig.js";
 
 export const getQueries = (filterSearchParam, perPage) => {
@@ -28,6 +28,51 @@ export const getQueries = (filterSearchParam, perPage) => {
         limitItems,
         allItems,
     };
-
 }
+
+
+
+export const getQueriesNextPage = (filterSearchParam, perPage, lastItem) => {
+    const psychologistsRef = ref(database, "psychologists");
+
+    const sortConfig = {
+        "A to Z": { field: "name", limitMethod: limitToFirst, direction: "asc" },
+        "Z to A": { field: "name", limitMethod: limitToLast, direction: "desc" },
+        "Less than 10$": { field: "price_per_hour", limitMethod: limitToFirst, direction: "asc" },
+        "Greater than 10$": { field: "price_per_hour", limitMethod: limitToLast, direction: "desc" },
+        "Popular": { field: "rating", limitMethod: limitToLast, direction: "desc" },
+        "Not popular": { field: "rating", limitMethod: limitToFirst, direction: "asc" },
+    };
+
+    const config = sortConfig[filterSearchParam] || {};
+    const { field = null, limitMethod = limitToFirst, direction = "asc" } = config;
+
+    let limitItems;
+
+    if (field) {
+        limitItems =
+            direction === "asc"
+                ? query(
+                    psychologistsRef,
+                    orderByChild(field),
+                    startAfter(lastItem[field], lastItem.id),
+                    limitMethod(perPage)
+                )
+                : query(
+                    psychologistsRef,
+                    orderByChild(field),
+                    endBefore(lastItem[field]),
+                    limitMethod(perPage)
+                );
+    } else {
+        limitItems = query(
+            psychologistsRef,
+            orderByKey(),
+            startAfter(lastItem.id),
+            limitToFirst(perPage)
+        );
+    }
+
+    return limitItems;
+};
 

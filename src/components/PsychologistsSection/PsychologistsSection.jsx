@@ -11,7 +11,10 @@ import {
   selectIsLoading,
   selectTotalPages,
 } from "../../redux/psychologists/selectors.js";
-import { fetchPsychologists } from "../../redux/psychologists/operations.js";
+import {
+  fetchPsychologists,
+  testFn,
+} from "../../redux/psychologists/operations.js";
 import { useSearchParams } from "react-router-dom";
 
 const PsychologistsSection = () => {
@@ -26,6 +29,7 @@ const PsychologistsSection = () => {
   const handleClickLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
     // dispatch(fetchPsychologists({ filterSearchParam, page: page + 1 }));
+    dispatch(testFn({ filterSearchParam, page: page + 1 }));
   };
 
   useEffect(() => {
