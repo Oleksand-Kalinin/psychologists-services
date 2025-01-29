@@ -6,13 +6,22 @@ import { openModal } from "../../redux/modals/slice.js";
 import Modal from "../Modal/Modal.jsx";
 import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
 import { selectModalType } from "../../redux/modals/selectors.js";
+import clsx from "clsx";
+import { testFn } from "../../redux/psychologists/operations.js";
+import { selectFavoritePsychologistsIds } from "../../redux/psychologists/selectors.js";
 
 const PsychologistsListItem = ({ item }) => {
   const dispatch = useDispatch();
+  const favoriteIds = useSelector(selectFavoritePsychologistsIds);
+  const isFavorite = favoriteIds.includes(item.id);
   const typeModal = useSelector(selectModalType);
   const [showMore, setShowMore] = useState(false);
   const [id, setId] = useState(null);
 
+  const handleClickBtnFavorite = () => {
+    console.log("clickBtnFavorite");
+    dispatch(testFn(item));
+  };
   const handleClickReadMore = () => {
     setShowMore(!showMore);
   };
@@ -50,7 +59,11 @@ const PsychologistsListItem = ({ item }) => {
             </p>
           </div>
 
-          <button className={css.btnFavorite} type="button">
+          <button
+            className={clsx(css.btnFavorite, { [css.isFavorite]: isFavorite })}
+            type="button"
+            onClick={handleClickBtnFavorite}
+          >
             <svg className={css.iconHeart}>
               {" "}
               <use href={`${sprite}#heart-icon`}></use>

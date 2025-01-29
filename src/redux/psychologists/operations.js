@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { get } from "firebase/database";
+import { get, ref, set } from "firebase/database";
 import { getQueries, getQueriesNextPage } from "../../js/utils/queryFirebase.js";
 import { sortPsychologists } from "../../js/utils/sort.js";
+import { auth, database } from "../../../firebaseConfig.js";
 
 const PER_PAGE = 4;
 
@@ -55,7 +56,6 @@ export const fetchPsychologists = createAsyncThunk(
                 page,
             };
         } catch (error) {
-            console.log(error);
             return thunkAPI.rejectWithValue(error.message);
         }
     }
@@ -63,157 +63,84 @@ export const fetchPsychologists = createAsyncThunk(
 
 
 
-// export const testFn = createAsyncThunk("test/fetch",
-//     async () => {
-//         console.log("start testFn");
+export const fetchFavoriteIds = createAsyncThunk(
+    'favoritePsychologists/fetchFavoriteIds',
+    async (_, thunkAPI) => {
+        console.log("start");
 
-//         try {
+        try {
+            const user = auth.currentUser;
+            const userId = user.uid;
 
-//             const psychologistsRef = ref(database, "test");
+            const favoritePsychologistsRef = ref(database, `favoritePsychologists/${userId}/favoriteIds`);
 
-//             const sortName = "name";
-//             // const sortName = "rating";
-//             // const sortName = "price_per_hour";
+            const favoritePsychologists = await get(favoritePsychologistsRef);
+            const favoriteIds = favoritePsychologists.exists() ? favoritePsychologists.val() : [];
+            return favoriteIds;
 
-//             const limit = 4;
-//             let lastItem;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    },
+    {
+        condition: (_, thunkApi) => {
+            const state = thunkApi.getState();
+            const token = state.auth.accessToken;
 
-//             // Без сортування
-//             // const sortedQuery = query(
-//             //     psychologistsRef,
-//             //     limitToFirst(limit),
-//             // );
-
-//             // З сортуванням за зростанням
-//             // const sortedQuery = query(
-//             //     psychologistsRef,
-//             //     orderByChild(sortName),
-//             //     limitToFirst(limit),
-//             // );
-
-//             // З сортуванням за спаданням
-//             const sortedQuery = query(
-//                 psychologistsRef,
-//                 orderByChild(sortName),
-//                 limitToLast(limit),
-//             );
-
-//             // Отримуємо дані
-//             const snapshot = await get(sortedQuery);
-//             if (snapshot.exists()) {
-//                 const psychologists = Object.entries(snapshot.val()).map(([id, data]) => ({
-//                     id,
-//                     ...data,
-//                 }));
-//                 const sortedPsychologists = sortTest(psychologists, sortName, "desc");
-//                 lastItem = sortedPsychologists[sortedPsychologists.length - 1];
-//                 console.log("Стрічка психологів:", sortedPsychologists);
-//             } else {
-//                 console.log("Дані відсутні.");
-//                 return [];
-//             }
-
-//             // Далі
-
-//             // Без сортування
-//             // const nextSortedQuery = query(
-//             //     psychologistsRef,
-//             //     orderByKey(),
-//             //     startAfter(lastItem.id),
-//             //     limitToFirst(limit),
-//             // );
-
-//             // // З сортуванням за зростанням
-//             // const nextSortedQuery = query(
-//             //     psychologistsRef,
-//             //     startAfter(lastItem[sortName], lastItem.id),
-//             //     orderByChild(sortName),
-//             //     limitToFirst(limit),
-//             // );
-
-//             // З сортуванням за спаданням
-//             const nextSortedQuery = query(
-//                 psychologistsRef,
-//                 endBefore(lastItem[sortName]),
-//                 orderByChild(sortName),
-//                 limitToLast(limit),
-//             );
+            if (token) return true;
+            return false;
+        },
+    }
+)
 
 
-//             // Отримуємо дані
-//             const nextSnapshot = await get(nextSortedQuery);
-//             if (nextSnapshot.exists()) {
-//                 const psychologists = Object.entries(nextSnapshot.val()).map(([id, data]) => ({
-//                     id,
-//                     ...data,
-//                 }))
-//                 const sortedPsychologists = sortTest(psychologists, sortName, "desc");
-//                 lastItem = sortedPsychologists[sortedPsychologists.length - 1];
-//                 console.log("Далі Стрічка психологів:", sortedPsychologists);
-//             } else {
-//                 console.log("Далі Дані відсутні.");
-//                 return [];
-//             }
 
-//             // Далі1
-
-//             // З сортуванням за зростанням
-//             // const next1SortedQuery = query(
-//             //     psychologistsRef,
-//             //     startAfter(lastItem[sortName], lastItem.id),
-//             //     orderByChild(sortName),
-//             //     limitToFirst(limit),
-//             // );
+export const testFn = createAsyncThunk("test/fetch",
+    async (payload) => {
+        console.log("start testFn");
 
 
-//             // З сортуванням за спаданням
-//             const next1SortedQuery = query(
-//                 psychologistsRef,
-//                 endBefore(lastItem[sortName]),
-//                 orderByChild(sortName),
-//                 limitToLast(limit),
-//             );
+        // // запис даних в firebase
+        // try {
+
+        //     const user = auth.currentUser;
+
+        //     const testData = {
+        //         psychologists: {
+        //             [payload.id]: payload,
+        //         },
+        //         favoriteIds: [payload.id]
+        //     };
+
+        //     console.log(testData);
+        //     set(ref(database, `favoritePsychologists/${user.uid}`), testData)
+        //         .then(() => console.log("Дані додані успішно"))
+        //         .catch((error) => console.error("Помилка:", error));
+
+        // }
+        // catch (error) {
+        //     console.log(error);
+        // }
 
 
-//             // Отримуємо дані
-//             const next1Snapshot = await get(next1SortedQuery);
-//             if (nextSnapshot.exists()) {
-//                 const psychologists = Object.entries(next1Snapshot.val()).map(([id, data]) => ({
-//                     id,
-//                     ...data,
-//                 }))
-//                 const sortedPsychologists = sortTest(psychologists, sortName, "desc");
-//                 lastItem = sortedPsychologists[sortedPsychologists.length - 1];
-//                 console.log("Далі1 Стрічка психологів:", sortedPsychologists);
-//             } else {
-//                 console.log("Далі1 Дані відсутні.");
-//                 return [];
-//             }
+        // // Find psychologist by ID
+        // const id = "5b24a5c7-1215-41ed-bd92-b234460bd056";
+        // try {
+        //     const psychologistRef = ref(database, `psychologists/${id}`); // Посилання на вузол
+        //     const snapshot = await get(psychologistRef); // Отримання даних
+        //     if (snapshot.exists()) {
+        //         const psychologist = snapshot.val();
+        //         console.log("Психолог знайдений:", psychologist);
+        //         return psychologist;
+        //     } else {
+        //         console.log("Психолог з таким ID не знайдений.");
+        //         return null;
+        //     }
+        // } catch (error) {
+        //     console.error("Помилка при отриманні даних:", error);
+        // }
+    }
 
-
-//         } catch (error) {
-//             console.error("Помилка при отриманні даних:", error);
-//         }
-
-
-//         // Find psychologist by ID
-//         // const id = "5b24a5c7-1215-41ed-bd92-b234460bd056";
-//         // try {
-//         //     const psychologistRef = ref(database, `psychologists/${id}`); // Посилання на вузол
-//         //     const snapshot = await get(psychologistRef); // Отримання даних
-//         //     if (snapshot.exists()) {
-//         //         const psychologist = snapshot.val();
-//         //         console.log("Психолог знайдений:", psychologist);
-//         //         return psychologist;
-//         //     } else {
-//         //         console.log("Психолог з таким ID не знайдений.");
-//         //         return null;
-//         //     }
-//         // } catch (error) {
-//         //     console.error("Помилка при отриманні даних:", error);
-//         // }
-//     }
-
-// )
+)
 
 

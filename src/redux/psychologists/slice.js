@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchPsychologists } from "./operations.js";
+import { fetchFavoriteIds, fetchPsychologists } from "./operations.js";
 
 const INITIAL_STATE = {
     psychologists: {
@@ -10,6 +10,7 @@ const INITIAL_STATE = {
     favoritesPsychologists: {
         totalPages: null,
         items: [],
+        favoriteIds: [],
         lastItem: null,
     },
     error: null,
@@ -48,6 +49,14 @@ const psychologistsSlice = createSlice({
                 (state, { payload }) => {
                     state.isLoading = false;
                     state.error = payload;
+                })
+
+
+
+            .addCase(
+                fetchFavoriteIds.fulfilled,
+                (state, { payload }) => {
+                    state.favoritesPsychologists.favoriteIds = payload;
                 })
     }
 })

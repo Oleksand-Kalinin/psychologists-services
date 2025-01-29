@@ -113,6 +113,11 @@
     transition: transform 250ms linear;
 }
 
+.isFavorite {
+    fill: var(--main-color);
+    stroke: var(--main-color);
+}
+
 .btnFavorite:hover,
 .btnFavorite:focus {
     transform: scale(1.1);
