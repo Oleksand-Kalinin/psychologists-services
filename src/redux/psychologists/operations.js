@@ -48,7 +48,6 @@ export const fetchPsychologists = createAsyncThunk(
             // Останній елемент для наступної сторінки
             const lastFetchedItem = sortedLimitedPsychologists[sortedLimitedPsychologists.length - 1] || null;
 
-            console.log(sortedLimitedPsychologists);
             return {
                 items: sortedLimitedPsychologists,
                 lastItem: lastFetchedItem,

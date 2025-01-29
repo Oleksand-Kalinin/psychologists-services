@@ -2,13 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
     createUserWithEmailAndPassword,
+    onAuthStateChanged,
     signInWithEmailAndPassword,
     signOut,
     updateProfile
 } from "firebase/auth";
-
 import { auth } from "../../../firebaseConfig.js";
-
 
 
 export const apiRegister = createAsyncThunk(
@@ -27,11 +26,10 @@ export const apiRegister = createAsyncThunk(
                 email: user.email,
                 userName: user.displayName,
                 accessToken: user.accessToken,
-                // refreshToken: user.refreshToken
             };
 
         } catch (error) {
-
+            console.log(error);
             return thunkApi.rejectWithValue(error.code);
         }
     }
@@ -54,7 +52,6 @@ export const apiLogin = createAsyncThunk(
                 email: user.email,
                 userName: user.displayName,
                 accessToken: user.accessToken,
-                // refreshToken: user.refreshToken
             };
 
         } catch (error) {
@@ -75,5 +72,37 @@ export const apiLogout = createAsyncThunk(
         } catch (error) {
             return thunkApi.rejectWithValue(error.code);
         }
+    }
+);
+
+
+
+export const apiRefreshUser = createAsyncThunk(
+    "auth/refresh",
+    async (_, thunkApi) => {
+        try {
+            const user = auth.currentUser;
+
+            const token = await user.getIdToken(true);
+
+            return {
+                id: user.uid,
+                email: user.email,
+                userName: user.displayName,
+                accessToken: token,
+            };
+        } catch (error) {
+            console.log(error);
+            return thunkApi.rejectWithValue(error.message);
+        }
+    },
+    {
+        condition: () => {
+            return new Promise((resolve) => {
+                onAuthStateChanged(auth, (user) => {
+                    resolve(!!user);
+                });
+            });
+        },
     }
 );
