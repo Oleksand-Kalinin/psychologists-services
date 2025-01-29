@@ -2,12 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
     createUserWithEmailAndPassword,
-    onAuthStateChanged,
     signInWithEmailAndPassword,
     signOut,
     updateProfile
 } from "firebase/auth";
 import { auth } from "../../../firebaseConfig.js";
+import { checkUserAuth } from "../../js/utils/checkUserAuth.js";
+
 
 
 export const apiRegister = createAsyncThunk(
@@ -81,28 +82,19 @@ export const apiRefreshUser = createAsyncThunk(
     "auth/refresh",
     async (_, thunkApi) => {
         try {
-            const user = auth.currentUser;
-
-            const token = await user.getIdToken(true);
-
-            return {
-                id: user.uid,
-                email: user.email,
-                userName: user.displayName,
-                accessToken: token,
-            };
+            const userData = await checkUserAuth();
+            return userData;
         } catch (error) {
-            console.log(error);
-            return thunkApi.rejectWithValue(error.message);
+            return thunkApi.rejectWithValue(error);
         }
     },
     {
-        condition: () => {
-            return new Promise((resolve) => {
-                onAuthStateChanged(auth, (user) => {
-                    resolve(!!user);
-                });
-            });
+        condition: (_, thunkApi) => {
+            const state = thunkApi.getState();
+            const token = state.auth.accessToken;
+
+            if (token) return true;
+            return false;
         },
     }
 );
