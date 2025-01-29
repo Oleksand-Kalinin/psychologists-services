@@ -11,13 +11,16 @@ const PsychologistsListItem = ({ item }) => {
   const dispatch = useDispatch();
   const typeModal = useSelector(selectModalType);
   const [showMore, setShowMore] = useState(false);
+  const [id, setId] = useState(null);
 
   const handleClickReadMore = () => {
     setShowMore(!showMore);
   };
 
-  const showMakeAppointmentModal = () =>
+  const showMakeAppointmentModal = () => {
     dispatch(openModal("makeAppointmentModal"));
+    setId(item.id);
+  };
 
   return (
     <li className={css.item}>
@@ -115,7 +118,7 @@ const PsychologistsListItem = ({ item }) => {
           </>
         )}
       </div>
-      {typeModal === "makeAppointmentModal" && (
+      {typeModal === "makeAppointmentModal" && id === item.id && (
         <Modal>
           <MakeAppointmentForm psychologist={item} />
         </Modal>
