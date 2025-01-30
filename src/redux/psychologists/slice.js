@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchFavoriteIds, fetchPsychologists } from "./operations.js";
+import { fetchFavoriteIds, fetchPsychologists, updateFavoritePsychologists } from "./operations.js";
 
 const INITIAL_STATE = {
     psychologists: {
@@ -67,6 +67,26 @@ const psychologistsSlice = createSlice({
                 (state, { payload }) => {
                     state.favoritesPsychologists.favoriteIds = payload;
                 })
+
+
+
+            .addCase(
+                updateFavoritePsychologists.fulfilled,
+                (state, { payload }) => {
+                    if (!payload) return;
+                    const { isFavorite, item } = payload;
+                    const favoriteIds = state.favoritesPsychologists.favoriteIds;
+                    const items = state.favoritesPsychologists.items;
+
+                    if (isFavorite) {
+                        state.favoritesPsychologists.favoriteIds = favoriteIds.filter(id => id !== item.id);
+                        state.favoritesPsychologists.items = items.filter(psychologist => psychologist.id !== item.id);
+                    } else {
+                        state.favoritesPsychologists.favoriteIds.push(item.id);
+                        state.favoritesPsychologists.items.push(item);
+                    }
+                }
+            )
     }
 })
 

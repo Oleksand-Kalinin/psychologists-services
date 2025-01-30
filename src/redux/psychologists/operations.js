@@ -125,7 +125,7 @@ export const updateFavoritePsychologists = createAsyncThunk(
                 toast.success("Psychologist added to favorites");
             }
 
-            return { userId, isFavorite, item };
+            return { isFavorite, item };
         } catch (error) {
             if (error.message === "User is not authenticated") {
                 toast.success("Login to add to favorites");
