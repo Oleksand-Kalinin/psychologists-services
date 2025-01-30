@@ -1,8 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { get, ref } from "firebase/database";
+import { get, ref, remove, set } from "firebase/database";
 import { getQueries, getQueriesNextPage } from "../../js/utils/queryFirebase.js";
 import { sortPsychologists } from "../../js/utils/sort.js";
 import { auth, database } from "../../../firebaseConfig.js";
+import toast from "react-hot-toast";
 
 const PER_PAGE = 4;
 
@@ -66,8 +67,6 @@ export const fetchPsychologists = createAsyncThunk(
 export const fetchFavoriteIds = createAsyncThunk(
     'favoritePsychologists/fetchFavoriteIds',
     async (_, thunkAPI) => {
-        console.log("start");
-
         try {
             const user = auth.currentUser;
             const userId = user.uid;
@@ -95,52 +94,94 @@ export const fetchFavoriteIds = createAsyncThunk(
 
 
 
-export const testFn = createAsyncThunk("test/fetch",
-    async (payload) => {
-        console.log("start testFn");
+export const updateFavoritePsychologists = createAsyncThunk(
+    'favoritePsychologists/updateFavoritePsychologists',
+    async (payload, thunkAPI) => {
+        console.log("start updateFavoritePsychologists");
+        try {
+            const user = auth.currentUser;
+            const userId = user.uid;
+
+            if (!user) {
+                toast.success("Please log in to add favorite psychologists.");
+            } else {
+                const { isFavorite, item } = payload;
+                const psychologistRef = ref(database, `favoritePsychologists/${userId}/psychologists/${item.id}`);
+                const favoritesArrayRef = ref(database, `favoritePsychologists/${userId}/favoriteIds`);
+                const snapshot = await get(favoritesArrayRef);
+                const existingFavorites = snapshot.exists() ? snapshot.val() : [];
+
+                if (isFavorite) {
+                    console.log("delete post");
+
+                    await remove(psychologistRef);
+                    const updatedFavorites = existingFavorites.filter(id => id !== item.id);
+                    await set(favoritesArrayRef, updatedFavorites);
+                } else {
+                    console.log("add post");
+
+                    await set(psychologistRef, item);
+                    if (!existingFavorites.includes(item.id)) {
+                        await set(favoritesArrayRef, [...existingFavorites, item.id]);
+                    }
+                }
+            }
 
 
-        // // запис даних в firebase
-        // try {
-
-        //     const user = auth.currentUser;
-
-        //     const testData = {
-        //         psychologists: {
-        //             [payload.id]: payload,
-        //         },
-        //         favoriteIds: [payload.id]
-        //     };
-
-        //     console.log(testData);
-        //     set(ref(database, `favoritePsychologists/${user.uid}`), testData)
-        //         .then(() => console.log("Дані додані успішно"))
-        //         .catch((error) => console.error("Помилка:", error));
-
-        // }
-        // catch (error) {
-        //     console.log(error);
-        // }
-
-
-        // // Find psychologist by ID
-        // const id = "5b24a5c7-1215-41ed-bd92-b234460bd056";
-        // try {
-        //     const psychologistRef = ref(database, `psychologists/${id}`); // Посилання на вузол
-        //     const snapshot = await get(psychologistRef); // Отримання даних
-        //     if (snapshot.exists()) {
-        //         const psychologist = snapshot.val();
-        //         console.log("Психолог знайдений:", psychologist);
-        //         return psychologist;
-        //     } else {
-        //         console.log("Психолог з таким ID не знайдений.");
-        //         return null;
-        //     }
-        // } catch (error) {
-        //     console.error("Помилка при отриманні даних:", error);
-        // }
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
     }
-
 )
+
+
+
+// export const testFn = createAsyncThunk("test/fetch",
+//     async (payload) => {
+//         console.log("start testFn");
+
+
+//         // // запис даних в firebase
+//         // try {
+
+//         //     const user = auth.currentUser;
+
+//         //     const testData = {
+//         //         psychologists: {
+//         //             [payload.id]: payload,
+//         //         },
+//         //         favoriteIds: [payload.id]
+//         //     };
+
+//         //     console.log(testData);
+//         //     set(ref(database, `favoritePsychologists/${user.uid}`), testData)
+//         //         .then(() => console.log("Дані додані успішно"))
+//         //         .catch((error) => console.error("Помилка:", error));
+
+//         // }
+//         // catch (error) {
+//         //     console.log(error);
+//         // }
+
+
+//         // // Find psychologist by ID
+//         // const id = "5b24a5c7-1215-41ed-bd92-b234460bd056";
+//         // try {
+//         //     const psychologistRef = ref(database, `psychologists/${id}`); // Посилання на вузол
+//         //     const snapshot = await get(psychologistRef); // Отримання даних
+//         //     if (snapshot.exists()) {
+//         //         const psychologist = snapshot.val();
+//         //         console.log("Психолог знайдений:", psychologist);
+//         //         return psychologist;
+//         //     } else {
+//         //         console.log("Психолог з таким ID не знайдений.");
+//         //         return null;
+//         //     }
+//         // } catch (error) {
+//         //     console.error("Помилка при отриманні даних:", error);
+//         // }
+//     }
+
+// )
 
 

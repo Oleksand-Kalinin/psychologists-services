@@ -7,8 +7,8 @@ import Modal from "../Modal/Modal.jsx";
 import MakeAppointmentForm from "../MakeAppointmentForm/MakeAppointmentForm.jsx";
 import { selectModalType } from "../../redux/modals/selectors.js";
 import clsx from "clsx";
-import { testFn } from "../../redux/psychologists/operations.js";
 import { selectFavoritePsychologistsIds } from "../../redux/psychologists/selectors.js";
+import { updateFavoritePsychologists } from "../../redux/psychologists/operations.js";
 
 const PsychologistsListItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -19,9 +19,9 @@ const PsychologistsListItem = ({ item }) => {
   const [id, setId] = useState(null);
 
   const handleClickBtnFavorite = () => {
-    console.log("clickBtnFavorite");
-    dispatch(testFn(item));
+    dispatch(updateFavoritePsychologists({ isFavorite, item }));
   };
+
   const handleClickReadMore = () => {
     setShowMore(!showMore);
   };
