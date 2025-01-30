@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { get, ref, set } from "firebase/database";
+import { get, ref } from "firebase/database";
 import { getQueries, getQueriesNextPage } from "../../js/utils/queryFirebase.js";
 import { sortPsychologists } from "../../js/utils/sort.js";
 import { auth, database } from "../../../firebaseConfig.js";

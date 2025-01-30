@@ -21,6 +21,15 @@ const psychologistsSlice = createSlice({
     name: "psychologists",
     initialState: INITIAL_STATE,
 
+    reducers: {
+        clearFavorites: (state) => {
+            state.favoritesPsychologists.totalPages = null;
+            state.favoritesPsychologists.items = [];
+            state.favoritesPsychologists.favoriteIds = [];
+            state.favoritesPsychologists.lastItem = null;
+        }
+    },
+
     extraReducers(builder) {
 
         builder
@@ -62,5 +71,5 @@ const psychologistsSlice = createSlice({
 })
 
 
-
+export const { clearFavorites } = psychologistsSlice.actions;
 export const psychologistsReducer = psychologistsSlice.reducer;

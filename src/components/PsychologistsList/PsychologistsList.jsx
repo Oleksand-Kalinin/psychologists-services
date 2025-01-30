@@ -6,14 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectPsychologists } from "../../redux/psychologists/selectors.js";
 import { useEffect } from "react";
 import { fetchFavoriteIds } from "../../redux/psychologists/operations.js";
+import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
 
 const PsychologistsList = () => {
   const dispatch = useDispatch();
   const psychologists = useSelector(selectPsychologists);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     dispatch(fetchFavoriteIds());
-  }, [dispatch]);
+  }, [dispatch, isLoggedIn]);
 
   return (
     <>
