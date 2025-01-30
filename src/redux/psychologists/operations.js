@@ -96,40 +96,42 @@ export const fetchFavoriteIds = createAsyncThunk(
 
 export const updateFavoritePsychologists = createAsyncThunk(
     'favoritePsychologists/updateFavoritePsychologists',
-    async (payload, thunkAPI) => {
-        console.log("start updateFavoritePsychologists");
+    async (payload) => {
         try {
             const user = auth.currentUser;
-            const userId = user.uid;
 
             if (!user) {
-                toast.success("Please log in to add favorite psychologists.");
-            } else {
-                const { isFavorite, item } = payload;
-                const psychologistRef = ref(database, `favoritePsychologists/${userId}/psychologists/${item.id}`);
-                const favoritesArrayRef = ref(database, `favoritePsychologists/${userId}/favoriteIds`);
-                const snapshot = await get(favoritesArrayRef);
-                const existingFavorites = snapshot.exists() ? snapshot.val() : [];
-
-                if (isFavorite) {
-                    console.log("delete post");
-
-                    await remove(psychologistRef);
-                    const updatedFavorites = existingFavorites.filter(id => id !== item.id);
-                    await set(favoritesArrayRef, updatedFavorites);
-                } else {
-                    console.log("add post");
-
-                    await set(psychologistRef, item);
-                    if (!existingFavorites.includes(item.id)) {
-                        await set(favoritesArrayRef, [...existingFavorites, item.id]);
-                    }
-                }
+                throw new Error("User is not authenticated");
             }
 
+            const userId = user.uid;
+            const { isFavorite, item } = payload;
+            const psychologistRef = ref(database, `favoritePsychologists/${userId}/psychologists/${item.id}`);
+            const favoritesArrayRef = ref(database, `favoritePsychologists/${userId}/favoriteIds`);
+            const snapshot = await get(favoritesArrayRef);
+            const existingFavorites = snapshot.exists() ? snapshot.val() : [];
 
+            if (isFavorite) {
+                await remove(psychologistRef);
+                const updatedFavorites = existingFavorites.filter(id => id !== item.id);
+                await set(favoritesArrayRef, updatedFavorites);
+                toast.success("Psychologist removed from favorites");
+            }
+            else {
+                await set(psychologistRef, item);
+                if (!existingFavorites.includes(item.id)) {
+                    await set(favoritesArrayRef, [...existingFavorites, item.id]);
+                }
+                toast.success("Psychologist added to favorites");
+            }
+
+            return { userId, isFavorite, item };
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
+            if (error.message === "User is not authenticated") {
+                toast.success("Login to add to favorites");
+                return;
+            }
+            toast.error(error.message);
         }
     }
 )
