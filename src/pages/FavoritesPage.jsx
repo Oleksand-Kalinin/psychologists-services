@@ -1,5 +1,7 @@
+import PsychologistsSection from "../components/PsychologistsSection/PsychologistsSection.jsx";
+
 const FavoritesPage = () => {
-  return <div>FavoritesPage</div>;
+  return <PsychologistsSection />;
 };
 
 export default FavoritesPage;

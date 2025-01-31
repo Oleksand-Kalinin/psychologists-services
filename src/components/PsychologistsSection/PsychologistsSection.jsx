@@ -12,11 +12,19 @@ import {
   selectPsychologists,
   selectTotalPages,
 } from "../../redux/psychologists/selectors.js";
-import { fetchPsychologists } from "../../redux/psychologists/operations.js";
-import { useSearchParams } from "react-router-dom";
+import {
+  fetchFavoriteIds,
+  fetchPsychologists,
+} from "../../redux/psychologists/operations.js";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
 
 const PsychologistsSection = () => {
+  const location = useLocation();
+
   const [searchParams] = useSearchParams();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   const filterSearchParam = searchParams.get("filter");
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
@@ -27,14 +35,19 @@ const PsychologistsSection = () => {
 
   const handleClickLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
-    dispatch(fetchPsychologists({ filterSearchParam, page: page + 1 }));
-    // dispatch(testFn({ filterSearchParam, page: page + 1 }));
+    dispatch(
+      fetchPsychologists({ filterSearchParam, page: page + 1, location })
+    );
   };
 
   useEffect(() => {
     setPage(1);
     dispatch(fetchPsychologists({ filterSearchParam }));
   }, [dispatch, filterSearchParam]);
+
+  useEffect(() => {
+    dispatch(fetchFavoriteIds());
+  }, [dispatch, isLoggedIn]);
 
   return (
     <Section className={css.psychologistsSection}>

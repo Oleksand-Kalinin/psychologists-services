@@ -11,7 +11,7 @@ export const fetchPsychologists = createAsyncThunk(
     'psychologists/fetch',
     async (payload, thunkAPI) => {
         try {
-            const { filterSearchParam, page = 1 } = payload;
+            const { filterSearchParam, page = 1, location } = payload;
 
             const state = thunkAPI.getState();
             const lastItem = page > 1 ? state.psychologists.psychologists.lastItem : null;
