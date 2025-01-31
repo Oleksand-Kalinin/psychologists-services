@@ -15,7 +15,11 @@ export const fetchPsychologists = createAsyncThunk(
             console.log(page);
 
             const state = thunkAPI.getState();
-            const lastItem = page > 1 ? state.psychologists.psychologists.lastItem : null;
+            const lastItem = page > 1
+                ? location.pathname === "/psychologists"
+                    ? state.psychologists.psychologists.lastItem
+                    : state.psychologists.favoritesPsychologists.lastItem
+                : null;
 
             let limitItems, allItems, totalPages;
 
