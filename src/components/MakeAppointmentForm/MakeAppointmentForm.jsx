@@ -10,6 +10,7 @@ import "./datePicker.css";
 import css from "./MakeAppointmentForm.module.css";
 import clsx from "clsx";
 import { MakeAppointmentValidationSchema } from "../../js/validation/validationSchemas.js";
+import toast from "react-hot-toast";
 
 const MakeAppointmentForm = ({ psychologist }) => {
   const startOfDay = new Date();
@@ -27,7 +28,9 @@ const MakeAppointmentForm = ({ psychologist }) => {
     mode: "onChange",
   });
   const onSubmit = (data) => {
-    console.log(data);
+    toast.success(
+      `Thank you, ${data.userName}! Your appointment request has been successfully sent! The psychologist will contact you soon.`
+    );
   };
 
   useEffect(() => {

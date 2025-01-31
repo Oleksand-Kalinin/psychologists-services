@@ -11,7 +11,8 @@ export const fetchPsychologists = createAsyncThunk(
     'psychologists/fetch',
     async (payload, thunkAPI) => {
         try {
-            const { filterSearchParam, page = 1, location } = payload;
+            const { filterSearchParam, page = 1, locationPathName } = payload;
+            console.log(page);
 
             const state = thunkAPI.getState();
             const lastItem = page > 1 ? state.psychologists.psychologists.lastItem : null;
@@ -19,11 +20,11 @@ export const fetchPsychologists = createAsyncThunk(
             let limitItems, allItems, totalPages;
 
             if (page === 1) {
-                const queries = getQueries(filterSearchParam, PER_PAGE);
+                const queries = getQueries(filterSearchParam, PER_PAGE, locationPathName);
                 limitItems = queries.limitItems;
                 allItems = queries.allItems;
             } else {
-                limitItems = getQueriesNextPage(filterSearchParam, PER_PAGE, lastItem);
+                limitItems = getQueriesNextPage(filterSearchParam, PER_PAGE, lastItem, locationPathName);
             }
 
             const [limitedResult, allResult] =
@@ -50,11 +51,13 @@ export const fetchPsychologists = createAsyncThunk(
             // Останній елемент для наступної сторінки
             const lastFetchedItem = sortedLimitedPsychologists[sortedLimitedPsychologists.length - 1] || null;
 
+            console.log(sortedLimitedPsychologists);
             return {
                 items: sortedLimitedPsychologists,
                 lastItem: lastFetchedItem,
                 ...(page === 1 && { totalPages }),
                 page,
+                locationPathName,
             };
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
@@ -135,55 +138,3 @@ export const updateFavoritePsychologists = createAsyncThunk(
         }
     }
 )
-
-
-
-// export const testFn = createAsyncThunk("test/fetch",
-//     async (payload) => {
-//         console.log("start testFn");
-
-
-//         // // запис даних в firebase
-//         // try {
-
-//         //     const user = auth.currentUser;
-
-//         //     const testData = {
-//         //         psychologists: {
-//         //             [payload.id]: payload,
-//         //         },
-//         //         favoriteIds: [payload.id]
-//         //     };
-
-//         //     console.log(testData);
-//         //     set(ref(database, `favoritePsychologists/${user.uid}`), testData)
-//         //         .then(() => console.log("Дані додані успішно"))
-//         //         .catch((error) => console.error("Помилка:", error));
-
-//         // }
-//         // catch (error) {
-//         //     console.log(error);
-//         // }
-
-
-//         // // Find psychologist by ID
-//         // const id = "5b24a5c7-1215-41ed-bd92-b234460bd056";
-//         // try {
-//         //     const psychologistRef = ref(database, `psychologists/${id}`); // Посилання на вузол
-//         //     const snapshot = await get(psychologistRef); // Отримання даних
-//         //     if (snapshot.exists()) {
-//         //         const psychologist = snapshot.val();
-//         //         console.log("Психолог знайдений:", psychologist);
-//         //         return psychologist;
-//         //     } else {
-//         //         console.log("Психолог з таким ID не знайдений.");
-//         //         return null;
-//         //     }
-//         // } catch (error) {
-//         //     console.error("Помилка при отриманні даних:", error);
-//         // }
-//     }
-
-// )
-
-

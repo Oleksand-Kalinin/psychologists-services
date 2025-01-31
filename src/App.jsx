@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { lazy, useEffect } from "react";
 
 import Layout from "./components/Layout/Layout.jsx";
@@ -38,6 +38,8 @@ function App() {
           path="/favorites"
           element={<PrivateRoute component={<FavoritesPage />} />}
         />
+
+        <Route path="*" element={<Navigate to={"/"} replace />} />
       </Routes>
     </Layout>
   );

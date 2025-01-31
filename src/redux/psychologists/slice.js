@@ -39,20 +39,46 @@ const psychologistsSlice = createSlice({
                     state.error = null;
                     state.isLoading = true;
                 })
+            // .addCase(
+            //     fetchPsychologists.fulfilled,
+            //     (state, { payload }) => {
+            //         state.isLoading = false;
+
+            //         if (payload.page > 1) {
+            //             state.psychologists.items.push(...payload.items);
+            //         } else {
+            //             state.psychologists.items = payload.items;
+            //             state.psychologists.totalPages = payload.totalPages;
+            //         }
+
+            //         state.psychologists.lastItem = payload.lastItem;
+            //     })
             .addCase(
                 fetchPsychologists.fulfilled,
                 (state, { payload }) => {
                     state.isLoading = false;
 
-                    if (payload.page > 1) {
-                        state.psychologists.items.push(...payload.items);
+                    if (payload.locationPathName === "/favorites") {
+                        // Оновлюємо favoritesPsychologists
+                        if (payload.page > 1) {
+                            state.favoritesPsychologists.items.push(...payload.items);
+                        } else {
+                            state.favoritesPsychologists.items = payload.items;
+                            state.favoritesPsychologists.totalPages = payload.totalPages;
+                        }
+                        state.favoritesPsychologists.lastItem = payload.lastItem;
                     } else {
-                        state.psychologists.items = payload.items;
-                        state.psychologists.totalPages = payload.totalPages;
+                        // Оновлюємо psychologists
+                        if (payload.page > 1) {
+                            state.psychologists.items.push(...payload.items);
+                        } else {
+                            state.psychologists.items = payload.items;
+                            state.psychologists.totalPages = payload.totalPages;
+                        }
+                        state.psychologists.lastItem = payload.lastItem;
                     }
-
-                    state.psychologists.lastItem = payload.lastItem;
-                })
+                }
+            )
             .addCase(
                 fetchPsychologists.rejected,
                 (state, { payload }) => {
@@ -76,14 +102,11 @@ const psychologistsSlice = createSlice({
                     if (!payload) return;
                     const { isFavorite, item } = payload;
                     const favoriteIds = state.favoritesPsychologists.favoriteIds;
-                    const items = state.favoritesPsychologists.items;
 
                     if (isFavorite) {
                         state.favoritesPsychologists.favoriteIds = favoriteIds.filter(id => id !== item.id);
-                        state.favoritesPsychologists.items = items.filter(psychologist => psychologist.id !== item.id);
                     } else {
                         state.favoritesPsychologists.favoriteIds.push(item.id);
-                        state.favoritesPsychologists.items.push(item);
                     }
                 }
             )

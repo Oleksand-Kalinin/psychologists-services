@@ -1,8 +1,9 @@
 import { endBefore, limitToFirst, limitToLast, orderByChild, orderByKey, query, ref, startAfter } from "firebase/database";
-import { database } from "../../../firebaseConfig.js";
+import { auth, database } from "../../../firebaseConfig.js";
 
-export const getQueries = (filterSearchParam, perPage) => {
-    const psychologistsRef = ref(database, "psychologists");
+export const getQueries = (filterSearchParam, perPage, locationPathName) => {
+    // const psychologistsRef = ref(database, "psychologists");
+    const psychologistsRef = locationPathName === "/psychologists" ? ref(database, "psychologists") : ref(database, `favoritePsychologists/${auth.currentUser.uid}/psychologists`);
 
     const sortConfig = {
         "A to Z": { field: "name", limitMethod: limitToFirst },
@@ -32,8 +33,10 @@ export const getQueries = (filterSearchParam, perPage) => {
 
 
 
-export const getQueriesNextPage = (filterSearchParam, perPage, lastItem) => {
-    const psychologistsRef = ref(database, "psychologists");
+export const getQueriesNextPage = (filterSearchParam, perPage, lastItem, locationPathName) => {
+    // const psychologistsRef = ref(database, "psychologists");
+    const psychologistsRef = locationPathName === "/psychologists" ? ref(database, "psychologists") : ref(database, `favoritePsychologists/${auth.currentUser.uid}/psychologists`);
+
 
     const sortConfig = {
         "A to Z": { field: "name", limitMethod: limitToFirst, direction: "asc" },
