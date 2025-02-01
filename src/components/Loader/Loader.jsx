@@ -11,7 +11,6 @@ const Loader = ({ text }) => {
           width="80"
           color="var(--main-color)"
           ariaLabel="bars-loading"
-          //   wrapperClass={css.loader}
           visible={true}
         />
       </div>
