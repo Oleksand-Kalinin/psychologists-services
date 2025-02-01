@@ -135,7 +135,7 @@
 
 .error {
     position: absolute;
-    top: calc(100% + 2px);
+    top: calc(100% - 14px);
     right: 12px;
 
     font-size: 10px;
@@ -179,5 +179,9 @@
 
     .wrapperTextarea {
         padding-bottom: 24px;
+    }
+
+    .error {
+        top: calc(100% + 2px);
     }
 }
