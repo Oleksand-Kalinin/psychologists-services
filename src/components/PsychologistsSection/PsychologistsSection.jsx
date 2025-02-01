@@ -20,6 +20,7 @@ import {
 } from "../../redux/psychologists/operations.js";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
+import Loader from "../Loader/Loader.jsx";
 
 const PsychologistsSection = () => {
   const location = useLocation();
@@ -70,7 +71,7 @@ const PsychologistsSection = () => {
     <Section className={css.psychologistsSection}>
       <Container>
         <h2 className="visually-hidden">Psychologists</h2>
-        {isLoading && psychologists.items.length === 0 && <p>Loading...</p>}
+        {isLoading && psychologists.items.length === 0 && <Loader />}
         {!error && (
           <>
             {psychologists.items.length > 0 && (

@@ -12,7 +12,6 @@ export const fetchPsychologists = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const { filterSearchParam, page = 1, locationPathName } = payload;
-            console.log(page);
 
             const state = thunkAPI.getState();
             const lastItem = page > 1
@@ -55,7 +54,6 @@ export const fetchPsychologists = createAsyncThunk(
             // Останній елемент для наступної сторінки
             const lastFetchedItem = sortedLimitedPsychologists[sortedLimitedPsychologists.length - 1] || null;
 
-            console.log(sortedLimitedPsychologists);
             return {
                 items: sortedLimitedPsychologists,
                 lastItem: lastFetchedItem,

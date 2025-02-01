@@ -6,6 +6,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { apiRefreshUser } from "./redux/auth/operations.js";
 import { selectIsRefreshing } from "./redux/auth/selectors.js";
+import Loader from "./components/Loader/Loader.jsx";
 
 const HomePage = lazy(() => import("./pages/HomePage.jsx"));
 const PsychologistsPage = lazy(() => import("./pages/PsychologistsPage.jsx"));
@@ -20,13 +21,7 @@ function App() {
     dispatch(apiRefreshUser());
   }, [dispatch]);
 
-  if (isRefreshing)
-    return (
-      <>
-        <p>User is refreshing, please wait</p>
-        <p>Loading...</p>
-      </>
-    );
+  if (isRefreshing) return <Loader text={"User is refreshing, please wait"} />;
 
   return (
     <Layout>
