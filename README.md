@@ -54,6 +54,11 @@ Users can browse a list of psychologists, sort them by different criteria, add t
 - Validation using **React Hook Form & Yup**.
 - Appointment requests stored in Firebase.
 
+## 🎨 Design & Prototype
+
+The project is designed based on the following Figma prototype:  
+🔗 **[View Figma Design](https://www.figma.com/design/8u1VMC3Md0Xx7JTpWZs4Q2/Psychologists.Services?node-id=28-146&t=WxYdu6sx34bb8hyH-0)**
+
 ## 🔧 **Technologies Used**
 
 - **React** (React Router, React Hooks)
