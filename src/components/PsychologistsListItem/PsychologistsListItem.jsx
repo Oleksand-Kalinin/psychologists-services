@@ -96,40 +96,40 @@ const PsychologistsListItem = ({ item }) => {
           className={css.btnReadMore}
           onClick={handleClickReadMore}
         >
-          Read more
+          {showMore ? "Hide details" : "Read more"}
         </button>
 
-        {showMore && (
-          <>
-            <ul className={css.reviewsWrapper}>
-              {item.reviews.map((r, index) => {
-                return (
-                  <li className={css.reviews} key={index}>
-                    <div className={css.reviewsAvatar}>
-                      {r.reviewer.slice(0, 1)}
-                    </div>
-                    <p className={css.reviewsName}>{r.reviewer}</p>
-                    <div className={css.reviewsRating}>
-                      <svg className={css.iconStar}>
-                        <use href={`${sprite}#star-icon`}></use>
-                      </svg>
-                      <p>{r.rating}</p>
-                    </div>
-                    <p className={css.reviewsComment}>{r.comment}</p>
-                  </li>
-                );
-              })}
-            </ul>
+        {/* {showMore && ( */}
+        <div className={clsx(css.reviewsContainer, { [css.show]: showMore })}>
+          <ul className={css.reviewsWrapper}>
+            {item.reviews.map((r, index) => {
+              return (
+                <li className={css.reviews} key={index}>
+                  <div className={css.reviewsAvatar}>
+                    {r.reviewer.slice(0, 1)}
+                  </div>
+                  <p className={css.reviewsName}>{r.reviewer}</p>
+                  <div className={css.reviewsRating}>
+                    <svg className={css.iconStar}>
+                      <use href={`${sprite}#star-icon`}></use>
+                    </svg>
+                    <p>{r.rating}</p>
+                  </div>
+                  <p className={css.reviewsComment}>{r.comment}</p>
+                </li>
+              );
+            })}
+          </ul>
 
-            <button
-              className={css.btnMakeAppointment}
-              type="button"
-              onClick={showMakeAppointmentModal}
-            >
-              Make an appointment
-            </button>
-          </>
-        )}
+          <button
+            className={css.btnMakeAppointment}
+            type="button"
+            onClick={showMakeAppointmentModal}
+          >
+            Make an appointment
+          </button>
+        </div>
+        {/* // )} */}
       </div>
       {typeModal === "makeAppointmentModal" && id === item.id && (
         <Modal>

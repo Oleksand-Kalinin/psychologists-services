@@ -175,6 +175,23 @@
     color: var(--color-focus);
 }
 
+.reviewsContainer {
+    margin-top: -24px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+        margin-top 250ms ease-in-out,
+        max-height 250ms ease-in-out,
+        opacity 250ms ease-in-out;
+}
+
+.reviewsContainer.show {
+    margin-top: 0;
+    max-height: 5000px;
+    opacity: 1;
+}
+
 .reviewsWrapper {
     display: flex;
     flex-direction: column;
