@@ -181,9 +181,9 @@
     opacity: 0;
     overflow: hidden;
     transition:
-        margin-top 250ms ease-in-out,
-        max-height 250ms ease-in-out,
-        opacity 250ms ease-in-out;
+        margin-top 250ms linear,
+        max-height 250ms linear,
+        opacity 250ms linear;
 }
 
 .reviewsContainer.show {
