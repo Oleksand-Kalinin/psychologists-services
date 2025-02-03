@@ -10,6 +10,8 @@ const ThemeProvider = ({ children }) => {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "green";
     setTheme(savedTheme);
+    const selectedTheme = themes[savedTheme];
+    applyTheme(selectedTheme);
   }, []);
 
   const changeTheme = (color) => {
@@ -28,6 +30,7 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-export const useTheme = () => useContext(ThemeContext);
+const useTheme = () => useContext(ThemeContext);
 
 export default ThemeProvider;
+export { useTheme };
