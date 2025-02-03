@@ -1,0 +1,27 @@
+.wrapper {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+
+    display: flex;
+    column-gap: 12px;
+}
+
+.btnColor {
+    border: none;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+}
+
+.colorGreen {
+    background-color: #54be96;
+}
+
+.colorBlue {
+    background-color: #3470ff;
+}
+
+.colorOrange {
+    background-color: #fc832c;
+}

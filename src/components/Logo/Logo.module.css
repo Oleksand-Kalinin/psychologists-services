@@ -1,3 +1,22 @@
+.wrapperLogo {
+    position: relative;
+}
+
+.wrapperLogo:hover .wrapperThemePopover,
+.logo:focus .wrapperThemePopover {
+    opacity: 1;
+    visibility: visible;
+}
+
+.wrapperThemePopover {
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 250ms linear,
+        visibility 250ms linear;
+}
+
 .logo {
     display: block;
     font-weight: 600;

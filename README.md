@@ -45,7 +45,7 @@ Users can browse a list of psychologists, sort them by different criteria, add t
   ✔ **By price** (ascending, descending)  
   ✔ **By rating** (highest, lowest)
 - Pagination:  
-  ✔ **Initially loads 3 psychologists**  
+  ✔ **Initially loads 4 psychologists**  
   ✔ **"Load more" button fetches additional psychologists**
 
 ### **5. Appointment Booking**
