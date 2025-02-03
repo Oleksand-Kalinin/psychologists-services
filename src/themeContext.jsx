@@ -1,10 +1,11 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { themes } from "../../js/constans/themes.js";
-import { applyTheme } from "../../js/utils/applyTheme.js";
+import { themes } from "./js/constans/themes.js";
+import { applyTheme } from "./js/utils/applyTheme.js";
 
-const ThemeContext = createContext();
+const themeContext = createContext();
+export const useTheme = () => useContext(themeContext);
 
-const ThemeProvider = ({ children }) => {
+export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("green");
 
   useEffect(() => {
@@ -24,13 +25,8 @@ const ThemeProvider = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, changeTheme }}>
+    <themeContext.Provider value={{ theme, changeTheme }}>
       {children}
-    </ThemeContext.Provider>
+    </themeContext.Provider>
   );
 };
-
-const useTheme = () => useContext(ThemeContext);
-
-export default ThemeProvider;
-export { useTheme };

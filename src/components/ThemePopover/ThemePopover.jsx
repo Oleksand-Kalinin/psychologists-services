@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import css from "./ThemePopover.module.css";
-import { useTheme } from "../ThemeProvider/ThemeProvider.jsx";
+import { useTheme } from "../../themeContext.jsx";
 
 const ThemePopover = ({ className }) => {
   const { changeTheme } = useTheme();
