@@ -66,5 +66,5 @@ The project is designed based on the following Figma prototype:
 - **Firebase** (Authentication, Realtime Database)
 - **React Hook Form + Yup** (form validation)
 - **CSS Modules**
-- **Vite** (or Webpack)
+- **Vite**
 - **Toastify** (notifications)
